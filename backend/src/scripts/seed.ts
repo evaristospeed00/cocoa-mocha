@@ -27,6 +27,9 @@ import {
 } from "@medusajs/medusa/core-flows";
 import { ApiKey } from "../../.medusa/types/query-entry-points";
 
+const STRIPE_PROVIDER_ID = "pp_stripe_stripe";
+const SYSTEM_PROVIDER_ID = "pp_system_default";
+
 const updateStoreCurrencies = createWorkflow(
   "update-store-currencies",
   (input: {
@@ -62,6 +65,10 @@ export default async function seedDemoData({ container }: ExecArgs) {
   const fulfillmentModuleService = container.resolve(Modules.FULFILLMENT);
   const salesChannelModuleService = container.resolve(Modules.SALES_CHANNEL);
   const storeModuleService = container.resolve(Modules.STORE);
+  const stripeConfigured = Boolean(process.env.STRIPE_API_KEY?.trim());
+  const regionPaymentProviders = stripeConfigured
+    ? [SYSTEM_PROVIDER_ID, STRIPE_PROVIDER_ID]
+    : [SYSTEM_PROVIDER_ID];
 
   const countries = ["gb", "de", "dk", "se", "fr", "es", "it"];
 
@@ -118,7 +125,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
           name: "Europe",
           currency_code: "eur",
           countries,
-          payment_providers: ["pp_system_default", "pp_stripe_stripe"],
+          payment_providers: regionPaymentProviders,
         },
       ],
     },
