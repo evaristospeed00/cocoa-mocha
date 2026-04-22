@@ -14,6 +14,10 @@ const rootStatusMiddleware = (
     return next();
   }
 
+  if (process.env.DISABLE_MEDUSA_ADMIN !== "true") {
+    return res.redirect(302, "/app");
+  }
+
   res
     .status(200)
     .type("html")
