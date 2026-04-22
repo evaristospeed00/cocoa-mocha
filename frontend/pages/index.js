@@ -9,9 +9,11 @@ import { useGlobalContext } from '../global-context'
 import { submitCustomerSignup } from '../lib/customer-signup'
 import { defaultFeaturedProducts } from '../lib/default-products'
 import { getFeaturedProductsFromMedusa } from '../lib/medusa-storefront'
+import { buildCanonicalUrl } from '../lib/site-url'
 
 const Home = (props) => {
   const { addToCart, openCart } = useGlobalContext()
+  const canonicalUrl = buildCanonicalUrl('/')
   const [isRewardsBubbleOpen, setIsRewardsBubbleOpen] = useState(false)
   const [isRewardsBubbleClosing, setIsRewardsBubbleClosing] = useState(false)
   const [rewardsEmail, setRewardsEmail] = useState('')
@@ -192,16 +194,14 @@ const Home = (props) => {
     <>
       <div className="home-container1">
         <Head>
-          <title>Third Brave Mandrill</title>
-          <meta property="og:title" content="Third Brave Mandrill" />
-          <link
-            rel="canonical"
-            href="https://third-brave-mandrill-dq10nb.teleporthq.app/"
-          />
-          <meta
-            property="og:url"
-            content="https://third-brave-mandrill-dq10nb.teleporthq.app/"
-          />
+          <title>Cocoa Mocha</title>
+          <meta property="og:title" content="Cocoa Mocha" />
+          {canonicalUrl ? (
+            <>
+              <link rel="canonical" href={canonicalUrl} />
+              <meta property="og:url" content={canonicalUrl} />
+            </>
+          ) : null}
         </Head>
         <Navigation></Navigation>
         <section className="welcome-hero">

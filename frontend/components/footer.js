@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { submitCustomerSignup } from '../lib/customer-signup'
+import { getSiteUrl } from '../lib/site-url'
 
 const Footer = (props) => {
   const [instagramPanelOpen, setInstagramPanelOpen] = useState(false)
@@ -17,7 +18,7 @@ const Footer = (props) => {
       return window.location.origin
     }
 
-    return 'https://third-brave-mandrill-dq10nb.teleporthq.app'
+    return getSiteUrl()
   }, [])
 
   const shareTitle = 'Cocoa Mocha'

@@ -680,8 +680,8 @@ const Checkout = () => {
       />
       <div className="checkout-container">
         <Head>
-          <title>Checkout - Third Brave Mandrill</title>
-          <meta property="og:title" content="Checkout - Third Brave Mandrill" />
+          <title>Checkout - Cocoa Mocha</title>
+          <meta property="og:title" content="Checkout - Cocoa Mocha" />
         </Head>
         <Navigation></Navigation>
         <section className="checkout-hero">

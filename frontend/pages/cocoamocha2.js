@@ -17,8 +17,8 @@ const fallbackProduct = {
   slug: 'colombian-supremo',
   productId: MEDUSA_PRODUCT_ID,
   variantId: MEDUSA_VARIANT_ID,
-  seoTitle: 'Colombian Supremo - Third Brave Mandrill',
-  ogTitle: 'Colombian Supremo - Third Brave Mandrill',
+  seoTitle: 'Colombian Supremo - Cocoa Mocha',
+  ogTitle: 'Colombian Supremo - Cocoa Mocha',
   canonicalPath: '/cocoamocha2',
   image:
     'https://images.pexels.com/photos/36343671/pexels-photo-36343671.jpeg?auto=compress&cs=tinysrgb&w=1500',

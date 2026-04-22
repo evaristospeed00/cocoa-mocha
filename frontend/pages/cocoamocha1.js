@@ -17,8 +17,8 @@ const fallbackProduct = {
   slug: 'ethiopian-yirgacheffe',
   productId: MEDUSA_PRODUCT_ID,
   variantId: MEDUSA_VARIANT_ID,
-  seoTitle: 'Ethiopian Yirgacheffe - Third Brave Mandrill',
-  ogTitle: 'Ethiopian Yirgacheffe - Third Brave Mandrill',
+  seoTitle: 'Ethiopian Yirgacheffe - Cocoa Mocha',
+  ogTitle: 'Ethiopian Yirgacheffe - Cocoa Mocha',
   canonicalPath: '/cocoamocha1',
   image:
     'https://images.pexels.com/photos/19052799/pexels-photo-19052799.jpeg?auto=compress&cs=tinysrgb&w=1500',

@@ -6,8 +6,8 @@ const CoffeeProductDetail = () => {
   return (
     <ProductDetailPage
       slug="cloud-nine-caramel-mocha"
-      seoTitle="Coffee Product Detail - Third Brave Mandrill"
-      ogTitle="Coffee Product Detail - Third Brave Mandrill"
+      seoTitle="Coffee Product Detail - Cocoa Mocha"
+      ogTitle="Coffee Product Detail - Cocoa Mocha"
       canonicalPath="/coffee-product-detail"
       image="https://images.pexels.com/photos/5567647/pexels-photo-5567647.jpeg?auto=compress&cs=tinysrgb&w=500"
       imageAlt="Cocoa Mocha Signature Caramel Latte"

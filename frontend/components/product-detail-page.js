@@ -9,6 +9,7 @@ import Navigation from './navigation'
 import Footer from './footer'
 import { useGlobalContext } from '../global-context'
 import { coffeeSelectorProducts } from '../lib/medusa-storefront'
+import { buildCanonicalUrl } from '../lib/site-url'
 
 const defaultReviews = [
   {
@@ -58,6 +59,7 @@ const ProductDetailPage = ({
 }) => {
   const router = useRouter()
   const { addToCart, openCart } = useGlobalContext()
+  const canonicalUrl = buildCanonicalUrl(canonicalPath)
   const formatPrice = (amount) =>
     new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -89,14 +91,12 @@ const ProductDetailPage = ({
         <Head>
           <title>{seoTitle}</title>
           <meta property="og:title" content={ogTitle} />
-          <link
-            rel="canonical"
-            href={`https://third-brave-mandrill-dq10nb.teleporthq.app${canonicalPath}`}
-          />
-          <meta
-            property="og:url"
-            content={`https://third-brave-mandrill-dq10nb.teleporthq.app${canonicalPath}`}
-          />
+          {canonicalUrl ? (
+            <>
+              <link rel="canonical" href={canonicalUrl} />
+              <meta property="og:url" content={canonicalUrl} />
+            </>
+          ) : null}
         </Head>
         <Navigation></Navigation>
         <section className="coffee-hero">

@@ -3,6 +3,7 @@ import Head from 'next/head'
 
 import Navigation from '../components/navigation'
 import Footer from '../components/footer'
+import { buildCanonicalUrl } from '../lib/site-url'
 
 const storyMoments = [
   {
@@ -44,20 +45,20 @@ const values = [
 ]
 
 const AboutUs = () => {
+  const canonicalUrl = buildCanonicalUrl('/about-us')
+
   return (
     <>
       <div className="about-us-page">
         <Head>
-          <title>About Us - Third Brave Mandrill</title>
-          <meta property="og:title" content="About Us - Third Brave Mandrill" />
-          <link
-            rel="canonical"
-            href="https://third-brave-mandrill-dq10nb.teleporthq.app/about-us"
-          />
-          <meta
-            property="og:url"
-            content="https://third-brave-mandrill-dq10nb.teleporthq.app/about-us"
-          />
+          <title>About Us - Cocoa Mocha</title>
+          <meta property="og:title" content="About Us - Cocoa Mocha" />
+          {canonicalUrl ? (
+            <>
+              <link rel="canonical" href={canonicalUrl} />
+              <meta property="og:url" content={canonicalUrl} />
+            </>
+          ) : null}
         </Head>
         <Navigation></Navigation>
         <section className="about-hero">

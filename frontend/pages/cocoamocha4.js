@@ -17,8 +17,8 @@ const fallbackProduct = {
   slug: 'guatemala-antigua',
   productId: MEDUSA_PRODUCT_ID,
   variantId: MEDUSA_VARIANT_ID,
-  seoTitle: 'Guatemala Antigua - Third Brave Mandrill',
-  ogTitle: 'Guatemala Antigua - Third Brave Mandrill',
+  seoTitle: 'Guatemala Antigua - Cocoa Mocha',
+  ogTitle: 'Guatemala Antigua - Cocoa Mocha',
   canonicalPath: '/cocoamocha4',
   image:
     'https://images.pexels.com/photos/15312642/pexels-photo-15312642.jpeg?auto=compress&cs=tinysrgb&w=1500',

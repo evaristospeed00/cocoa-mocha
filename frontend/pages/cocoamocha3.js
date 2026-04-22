@@ -17,8 +17,8 @@ const fallbackProduct = {
   slug: 'sumatra-mandheling',
   productId: MEDUSA_PRODUCT_ID,
   variantId: MEDUSA_VARIANT_ID,
-  seoTitle: 'Sumatra Mandheling - Third Brave Mandrill',
-  ogTitle: 'Sumatra Mandheling - Third Brave Mandrill',
+  seoTitle: 'Sumatra Mandheling - Cocoa Mocha',
+  ogTitle: 'Sumatra Mandheling - Cocoa Mocha',
   canonicalPath: '/cocoamocha3',
   image:
     'https://images.pexels.com/photos/6729581/pexels-photo-6729581.jpeg?auto=compress&cs=tinysrgb&w=1500',
