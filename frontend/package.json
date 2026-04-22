@@ -1,0 +1,25 @@
+{
+  "name": "third-brave-mandrill",
+  "version": "1.0.0",
+  "description": "A next project generated based on a UIDL document",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node dev-server.cjs",
+    "build": "next build",
+    "start": "next start",
+    "export": "next export"
+  },
+  "author": "TeleportHQ",
+  "license": "MIT",
+  "dependencies": {
+    "@teleporthq/react-components": "latest",
+    "dangerous-html": "0.1.13",
+    "next": "^16.2.3",
+    "next-intl": "^3.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "engines": {
+    "node": ">=18.x"
+  }
+}

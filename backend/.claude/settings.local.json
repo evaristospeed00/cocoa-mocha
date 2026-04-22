@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git commit -m 'fix: update Dockerfile port to 9000 and refine npm ci flags *)",
+      "Bash(git push *)",
+      "Bash(git commit -m 'refactor: simplify Dockerfile for Medusa v2 flow *)",
+      "Bash(git commit -m 'chore: force redeploy by adding newline to Dockerfile *)",
+      "Bash(git commit -m 'chore: change start command to dev for development environment *)",
+      "Bash(git commit -m 'fix: revert config copy and restore start command to avoid SyntaxError *)",
+      "Bash(git commit -m 'fix: force config file copies and use npx medusa start to resolve module not found error *)",
+      "Bash(git pull *)"
+    ]
+  }
+}

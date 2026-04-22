@@ -1,0 +1,7 @@
+User-agent: Googlebot
+Disallow: /nogooglebot/
+
+User-agent: *
+Allow: /
+
+Sitemap: https://third-brave-mandrill-dq10nb.teleporthq.app/sitemap.xml
