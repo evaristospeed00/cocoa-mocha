@@ -24,9 +24,9 @@ const fallbackDescription =
 
 const MEDUSA_PROXY_BASE_PATH = '/api/medusa'
 
-const featuredProductsById = [
+const featuredProducts = [
   {
-    productId: 'prod_01KNQKZ0CA1EH81H8FN7JJW5ZW',
+    handle: 'ethiopian-yirgacheffe',
     href: '/cocoamocha1',
     badge: 'Bright & Floral',
     tastingNotes: 'Citrus bloom, floral aroma, lively finish',
@@ -34,7 +34,7 @@ const featuredProductsById = [
       'An elegant, fruit-forward roast with sparkling acidity and a clean finish that feels vibrant from the first sip.',
   },
   {
-    productId: 'prod_01KNQKZ0CACTPSX6X08TXDA8HN',
+    handle: 'colombian-supremo',
     href: '/cocoamocha2',
     badge: 'Smooth Favorite',
     tastingNotes: 'Nutty sweetness, balanced body, silky cup',
@@ -42,7 +42,7 @@ const featuredProductsById = [
       'A polished crowd-pleaser with mellow richness and easy elegance, perfect for everyday mornings or slow afternoon breaks.',
   },
   {
-    productId: 'prod_01KNQKZ0CADP473D7N5EZ34D52',
+    handle: 'sumatra-mandheling',
     href: '/cocoamocha3',
     badge: 'Bold & Earthy',
     tastingNotes: 'Deep body, spice, low-acid intensity',
@@ -50,7 +50,7 @@ const featuredProductsById = [
       'Dark, moody, and memorable, this roast brings grounded earthiness and a confident finish with real personality.',
   },
   {
-    productId: 'prod_01KNQKZ0CAJ6VWSNV1937KZ830',
+    handle: 'guatemala-antigua',
     href: '/cocoamocha4',
     badge: 'Chocolate Luxe',
     tastingNotes: 'Cocoa depth, smoky nuance, layered finish',
@@ -62,32 +62,32 @@ const featuredProductsById = [
 export const coffeeSelectorProducts = [
   {
     key: 'ethiopia',
+    handle: 'ethiopian-yirgacheffe',
     href: '/cocoamocha1',
-    productId: 'prod_01KNQKZ0CA1EH81H8FN7JJW5ZW',
     fallbackTitle: 'Ethiopian Yirgacheffe',
     subtitle: 'Fruity & Floral',
     themeClass: 'product-coffee-option--ethiopia',
   },
   {
     key: 'colombia',
+    handle: 'colombian-supremo',
     href: '/cocoamocha2',
-    productId: 'prod_01KNQKZ0CACTPSX6X08TXDA8HN',
     fallbackTitle: 'Colombian Supremo',
     subtitle: 'Balanced & Nutty',
     themeClass: 'product-coffee-option--colombia',
   },
   {
     key: 'sumatra',
+    handle: 'sumatra-mandheling',
     href: '/cocoamocha3',
-    productId: 'prod_01KNQKZ0CADP473D7N5EZ34D52',
     fallbackTitle: 'Sumatra Mandheling',
     subtitle: 'Earthy & Bold',
     themeClass: 'product-coffee-option--sumatra',
   },
   {
     key: 'guatemala',
+    handle: 'guatemala-antigua',
     href: '/cocoamocha4',
-    productId: 'prod_01KNQKZ0CAJ6VWSNV1937KZ830',
     fallbackTitle: 'Guatemala Antigua',
     subtitle: 'Chocolate & Smoke',
     themeClass: 'product-coffee-option--guatemala',
@@ -340,11 +340,27 @@ export const fetchMedusaProduct = async (productId) => {
   return data?.product || null
 }
 
+export const fetchMedusaProductByHandle = async (handle) => {
+  if (!isMedusaConfigured() || !handle) {
+    return null
+  }
+
+  const products = await fetchMedusaProducts()
+  const matchingProduct =
+    products.find((product) => product?.handle === handle) || null
+
+  if (!matchingProduct?.id) {
+    return null
+  }
+
+  return fetchMedusaProduct(matchingProduct.id)
+}
+
 export const getCoffeeSelectorOptions = async () => {
   const options = await Promise.all(
     coffeeSelectorProducts.map(async (product) => {
       try {
-        const medusaProduct = await fetchMedusaProduct(product.productId)
+        const medusaProduct = await fetchMedusaProductByHandle(product.handle)
 
         return {
           ...product,
@@ -462,15 +478,16 @@ export const completeMedusaCart = async (cartId) =>
 export const getFeaturedProductsFromMedusa = async (fallbackProducts) => {
   try {
     const medusaProducts = await Promise.all(
-      featuredProductsById.map((product) => fetchMedusaProduct(product.productId))
+      featuredProducts.map((product) => fetchMedusaProductByHandle(product.handle))
     )
     const products = medusaProducts
       .map((product, index) =>
-        mapMedusaProductToCard(product, featuredProductsById[index])
+        mapMedusaProductToCard(product, featuredProducts[index])
       )
+      .filter(Boolean)
       .filter((product) => product.price > 0)
 
-    if (products.length === featuredProductsById.length) {
+    if (products.length === featuredProducts.length) {
       return {
         products,
         source: 'medusa',
@@ -485,9 +502,13 @@ export const getFeaturedProductsFromMedusa = async (fallbackProducts) => {
 }
 
 export const mapMedusaProductToCard = (product) => {
+  if (!product) {
+    return null
+  }
+
   const config =
-    featuredProductsById.find(
-      (featuredProduct) => featuredProduct.productId === product?.id
+    featuredProducts.find(
+      (featuredProduct) => featuredProduct.handle === product?.handle
     ) || null
   const primaryVariant = getPrimaryVariant(product)
   const { saleAmount } = getProductPriceSnapshot(product)
