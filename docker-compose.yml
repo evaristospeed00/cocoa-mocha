@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:15   # <- aquí especificas la versión
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=medusa_db
+      - POSTGRES_USER=evaristosuareze
+      - POSTGRES_PASSWORD=Pizza2002
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+volumes:
+  postgres-db:
+
+# URL de conexión a PostgreSQL para MedusaJS
+# postgres://evaristosuareze:Pizza2002@localhost:5432/medusa_db
+
