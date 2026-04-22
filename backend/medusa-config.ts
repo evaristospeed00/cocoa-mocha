@@ -24,6 +24,9 @@ module.exports = defineConfig({
       cookieSecret: process.env.COOKIE_SECRET || 'supersecret',
     },
   },
+  admin: {
+    disable: process.env.DISABLE_MEDUSA_ADMIN === 'true',
+  },
   modules: [
     {
       resolve: '@medusajs/medusa/auth',
