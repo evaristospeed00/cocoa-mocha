@@ -15,7 +15,8 @@
   "scripts": {
     "build": "medusa build",
     "bootstrap": "medusa exec ./src/scripts/bootstrap.ts",
-    "render:start": "npm run bootstrap && npm run start",
+    "migrate": "medusa db:migrate",
+    "render:start": "npm run migrate && npm run bootstrap && npm run start",
     "seed": "medusa exec ./src/scripts/seed.ts",
     "stripe:sync-regions": "medusa exec ./src/scripts/sync-stripe-regions.ts",
     "start": "medusa start",
