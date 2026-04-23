@@ -3103,8 +3103,12 @@ body {
     box-shadow: 0 12px 28px rgba(84, 45, 21, 0.06);
   }
   .rewards-teaser-card {
-    width: min(100%, 23.5rem);
+    width: min(100%, 22.25rem);
     margin: 0 auto;
+    display: grid;
+    aspect-ratio: 1 / 1;
+    align-items: stretch;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
     overflow: hidden;
     position: relative;
     border-radius: 28px;
@@ -3115,35 +3119,67 @@ body {
     box-shadow: 0 26px 50px rgba(84, 45, 21, 0.14);
   }
   .rewards-teaser-visual {
-    min-height: 0;
-    aspect-ratio: 1 / 1;
-    border-radius: 28px 28px 0 0;
+    min-height: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    border-radius: 28px 0 0 28px;
   }
   .rewards-teaser-badge {
-    top: 0.9rem;
-    right: 0.9rem;
-    padding: 0.7rem 0.9rem;
-    font-size: 0.82rem;
+    top: 0.75rem;
+    right: 0.75rem;
+    padding: 0.55rem 0.7rem;
+    font-size: 0.72rem;
     border-radius: 999px;
     box-shadow: 0 14px 30px rgba(255, 110, 199, 0.22);
   }
+  .rewards-teaser-badge svg {
+    width: 16px;
+    height: 16px;
+  }
   .rewards-teaser-content {
-    gap: 1rem;
-    padding: 1.05rem 1rem 1rem;
+    gap: 0.68rem;
+    min-width: 0;
+    padding: 0.9rem 0.9rem 0.9rem 0.8rem;
     background:
       linear-gradient(180deg, rgba(255, 250, 244, 0.9), rgba(255, 245, 235, 0.98));
   }
+  .rewards-teaser-content .section-title {
+    max-width: none;
+    font-size: 1.42rem;
+    line-height: 1.04;
+  }
   .rewards-teaser-content .section-content {
-    max-width: 30ch;
-    font-size: 0.95rem;
+    max-width: none;
+    font-size: 0.83rem;
+    line-height: 1.45;
+  }
+  .rewards-teaser-perks {
+    gap: 0.45rem;
+    margin: 0.2rem 0 0.65rem;
+  }
+  .rewards-teaser-perk {
+    gap: 0.45rem;
+    padding: 0.55rem 0.65rem;
+    border-radius: 14px;
+  }
+  .rewards-teaser-perk span {
+    font-size: 0.74rem;
+    line-height: 1.3;
+  }
+  .rewards-teaser-perk svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
   }
   .rewards-teaser-cta-wrap {
-    margin-top: 0.2rem;
+    margin-top: auto;
   }
   .rewards-teaser-trigger,
   .rewards-teaser-trigger.btn {
-    min-height: 56px;
-    border-radius: 18px;
+    min-height: 46px;
+    padding: 0.85rem 0.95rem;
+    border-radius: 16px;
+    font-size: 0.9rem;
     box-shadow: 0 16px 34px rgba(255, 110, 199, 0.18);
   }
   .coffee-tab {
@@ -3236,15 +3272,28 @@ body {
     border-radius: 20px;
   }
   .rewards-teaser-card {
-    width: min(100%, 21.75rem);
+    width: min(100%, 20.5rem);
     border-radius: 24px;
   }
   .rewards-teaser-visual {
-    aspect-ratio: 1 / 1;
-    border-radius: 24px 24px 0 0;
+    border-radius: 24px 0 0 24px;
   }
   .rewards-teaser-content {
-    padding: 0.95rem 0.9rem 0.95rem;
+    padding: 0.82rem 0.8rem 0.82rem 0.72rem;
+  }
+  .rewards-teaser-content .section-title {
+    font-size: 1.28rem;
+  }
+  .rewards-teaser-content .section-content {
+    font-size: 0.78rem;
+  }
+  .rewards-teaser-perk span {
+    font-size: 0.7rem;
+  }
+  .rewards-teaser-trigger,
+  .rewards-teaser-trigger.btn {
+    min-height: 42px;
+    font-size: 0.84rem;
   }
   .featured-drinks-card {
     flex-basis: 88vw;
