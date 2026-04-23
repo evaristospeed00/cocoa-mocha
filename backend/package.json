@@ -13,11 +13,12 @@
     "medusa"
   ],
   "scripts": {
-    "build": "medusa build",
+    "build": "medusa build && npm run sync:admin-build",
     "bootstrap": "medusa exec ./src/scripts/bootstrap.ts",
     "migrate": "medusa db:migrate",
     "render:start": "npm run migrate && npm run start",
     "seed": "medusa exec ./src/scripts/seed.ts",
+    "sync:admin-build": "node ./scripts/sync-admin-build.js",
     "stripe:sync-regions": "medusa exec ./src/scripts/sync-stripe-regions.ts",
     "start": "medusa start",
     "dev": "medusa develop",
