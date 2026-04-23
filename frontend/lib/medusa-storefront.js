@@ -135,6 +135,39 @@ const normalizePrice = (variant = {}) => {
 
 const getConfiguredCurrencyCode = () => getMedusaConfig().currencyCode
 
+const buildProductQueryParams = async (extraParams = {}) => {
+  const regionId = await getDefaultMedusaRegion()
+  const productUrl = new URL('/store/products', 'http://medusa.local')
+
+  if (regionId) {
+    productUrl.searchParams.set('region_id', regionId)
+  }
+
+  productUrl.searchParams.set(
+    'fields',
+    [
+      '*thumbnail',
+      '*images',
+      '*variants.calculated_price',
+      '*variants.prices',
+      '*variants.price_set',
+      '+variants.calculated_price',
+      '+variants.prices',
+      '+variants.price_set',
+    ].join(',')
+  )
+
+  Object.entries(extraParams).forEach(([key, value]) => {
+    if (value == null || value === '') {
+      return
+    }
+
+    productUrl.searchParams.set(key, String(value))
+  })
+
+  return `${productUrl.pathname}${productUrl.search}`
+}
+
 const getVariantPrices = (variant = {}) => {
   if (Array.isArray(variant?.prices) && variant.prices.length > 0) {
     return variant.prices
@@ -322,22 +355,28 @@ export const fetchMedusaProduct = async (productId) => {
     return null
   }
 
-  const regionId = await getDefaultMedusaRegion()
-  const productUrl = new URL(`/store/products/${productId}`, 'http://medusa.local')
+  const listPath = await buildProductQueryParams({
+    id: productId,
+    limit: 1,
+  })
+  const data = await medusaStoreFetch(listPath)
+  const matchingProduct =
+    Array.isArray(data?.products) && data.products.length > 0
+      ? data.products[0]
+      : null
 
-  if (regionId) {
-    productUrl.searchParams.set('region_id', regionId)
+  if (matchingProduct) {
+    return matchingProduct
   }
 
-  productUrl.searchParams.set(
-    'fields',
-    '*variants.calculated_price,*variants.prices,*variants.price_set,+variants.calculated_price,+variants.prices,+variants.price_set'
-  )
+  const detailPath = await buildProductQueryParams()
+  const detailUrl = new URL(`/store/products/${productId}`, 'http://medusa.local')
+  const detailQuery = detailPath.split('?')[1]
 
-  const data = await medusaStoreFetch(
-    `${productUrl.pathname}${productUrl.search}`
+  const dataById = await medusaStoreFetch(
+    detailQuery ? `${detailUrl.pathname}?${detailQuery}` : detailUrl.pathname
   )
-  return data?.product || null
+  return dataById?.product || null
 }
 
 export const fetchMedusaProductByHandle = async (handle) => {
@@ -345,15 +384,12 @@ export const fetchMedusaProductByHandle = async (handle) => {
     return null
   }
 
-  const products = await fetchMedusaProducts()
-  const matchingProduct =
-    products.find((product) => product?.handle === handle) || null
-
-  if (!matchingProduct?.id) {
-    return null
-  }
-
-  return fetchMedusaProduct(matchingProduct.id)
+  const listPath = await buildProductQueryParams({
+    handle,
+    limit: 1,
+  })
+  const data = await medusaStoreFetch(listPath)
+  return Array.isArray(data?.products) ? data.products[0] || null : null
 }
 
 export const getCoffeeSelectorOptions = async () => {
