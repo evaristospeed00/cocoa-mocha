@@ -1381,8 +1381,8 @@ body {
   overflow-x: visible;
   scrollbar-width: none;
   scroll-snap-type: none;
-  touch-action: pan-x;
-  overscroll-behavior-x: contain;
+  touch-action: auto;
+  overscroll-behavior-x: auto;
   -webkit-overflow-scrolling: touch;
 }
  
@@ -3016,17 +3016,20 @@ body {
     padding-right: 0;
   }
   .featured-drinks-rail {
-    gap: 0.85rem;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    padding: 0.75rem 0.1rem 0.95rem 0;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0.75rem 0 1rem;
+    overflow: visible;
+    scroll-snap-type: none;
+    touch-action: auto;
+    overscroll-behavior: auto;
+    scroll-behavior: auto;
   }
   .featured-drinks-card {
-    flex-basis: 84vw;
-    max-width: 84vw;
-    scroll-snap-stop: always;
+    flex-basis: 100%;
+    max-width: 100%;
+    scroll-snap-stop: normal;
   }
   .featured-drinks-name-row {
     align-items: flex-start;
@@ -3389,12 +3392,13 @@ video {
   }
 
   .featured-drinks-rail {
-    scroll-padding-left: 0.25rem;
+    scroll-padding-left: 0;
+    scroll-padding-right: 0;
     -webkit-overflow-scrolling: touch;
   }
 
   .featured-drinks-card {
-    scroll-snap-align: start;
+    scroll-snap-align: none;
   }
 
   .featured-drinks-name-row,
