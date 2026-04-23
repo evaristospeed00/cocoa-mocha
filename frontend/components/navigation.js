@@ -6,6 +6,48 @@ import { useGlobalContext } from '../global-context'
 import { getCartItemCount, getCartSubtotal } from '../lib/cart'
 import { coffeeSelectorProducts } from '../lib/medusa-storefront'
 
+const rewardsMenuItems = [
+  {
+    badge: 'Fan Favorite',
+    title: 'Buy 5 handcrafted drinks, get 1 classic brewed coffee free',
+    copy: 'Keeps guests coming back while protecting margin on premium drinks.',
+    badgeClassName: '',
+  },
+  {
+    badge: 'Smart Upgrade',
+    title: 'Spend $18 on any visit and unlock 50% off a pastry',
+    copy: 'Encourages bigger tickets without giving away a full item.',
+    badgeClassName: ' navigation-rewards-badge--green',
+  },
+  {
+    badge: 'Morning Rush',
+    title: 'Order before 10 AM three times and earn a free flavor add-on',
+    copy: 'Builds habit, boosts volume, and keeps the reward low-cost.',
+    badgeClassName: ' navigation-rewards-badge--gold',
+  },
+]
+
+const giftCardMenuItems = [
+  {
+    badge: 'Better Value',
+    title: 'Load a $25 gift card and get a $3 bonus for your next visit',
+    copy: 'Guests feel rewarded, and you bring them back in for another order.',
+    badgeClassName: '',
+  },
+  {
+    badge: 'Email Capture',
+    title: 'Send a digital gift card and unlock a surprise reward by joining the email club',
+    copy: 'You grow your list, and the customer gets an extra reason to come back.',
+    badgeClassName: ' navigation-gift-badge--pink',
+  },
+  {
+    badge: 'Team Favorite',
+    title: 'Buy 2 gift cards and earn a free pastry add-on with your own order',
+    copy: 'Encourages gifting while keeping the reward low-cost and high-feel.',
+    badgeClassName: ' navigation-gift-badge--gold',
+  },
+]
+
 const Navigation = (props) => {
   const {
     cart,
@@ -313,45 +355,23 @@ const Navigation = (props) => {
                     data-dropdown-menu="rewards"
                     className="navigation-thq-dropdown-menu-elm navigation-rewards-menu dropdown-menu list"
                   >
-                    <li className="list-item">
-                      <div className="navigation-rewards-card">
-                        <span className="navigation-rewards-badge">
-                          Fan Favorite
-                        </span>
-                        <span className="navigation-rewards-title">
-                          Buy 5 handcrafted drinks, get 1 classic brewed coffee free
-                        </span>
-                        <span className="navigation-rewards-copy">
-                          Keeps guests coming back while protecting margin on premium drinks.
-                        </span>
-                      </div>
-                    </li>
-                    <li className="list-item">
-                      <div className="navigation-rewards-card">
-                        <span className="navigation-rewards-badge navigation-rewards-badge--green">
-                          Smart Upgrade
-                        </span>
-                        <span className="navigation-rewards-title">
-                          Spend $18 on any visit and unlock 50% off a pastry
-                        </span>
-                        <span className="navigation-rewards-copy">
-                          Encourages bigger tickets without giving away a full item.
-                        </span>
-                      </div>
-                    </li>
-                    <li className="list-item">
-                      <div className="navigation-rewards-card">
-                        <span className="navigation-rewards-badge navigation-rewards-badge--gold">
-                          Morning Rush
-                        </span>
-                        <span className="navigation-rewards-title">
-                          Order before 10 AM three times and earn a free flavor add-on
-                        </span>
-                        <span className="navigation-rewards-copy">
-                          Builds habit, boosts volume, and keeps the reward low-cost.
-                        </span>
-                      </div>
-                    </li>
+                    {rewardsMenuItems.map((item) => (
+                      <li key={item.title} className="list-item">
+                        <div className="navigation-rewards-card">
+                          <span
+                            className={`navigation-rewards-badge${item.badgeClassName}`}
+                          >
+                            {item.badge}
+                          </span>
+                          <span className="navigation-rewards-title">
+                            {item.title}
+                          </span>
+                          <span className="navigation-rewards-copy">
+                            {item.copy}
+                          </span>
+                        </div>
+                      </li>
+                    ))}
                   </ul>
                 </li>
                 <li
@@ -381,45 +401,23 @@ const Navigation = (props) => {
                       data-dropdown-menu="gift-cards"
                       className="navigation-thq-dropdown-menu-elm navigation-gift-menu dropdown-menu list"
                     >
-                      <li className="list-item">
-                        <div className="navigation-gift-card">
-                          <span className="navigation-gift-badge">
-                            Better Value
-                          </span>
-                          <span className="navigation-gift-title">
-                            Load a $25 gift card and get a $3 bonus for your next visit
-                          </span>
-                          <span className="navigation-gift-copy">
-                            Guests feel rewarded, and you bring them back in for another order.
-                          </span>
-                        </div>
-                      </li>
-                      <li className="list-item">
-                        <div className="navigation-gift-card">
-                          <span className="navigation-gift-badge navigation-gift-badge--pink">
-                            Email Capture
-                          </span>
-                          <span className="navigation-gift-title">
-                            Send a digital gift card and unlock a surprise reward by joining the email club
-                          </span>
-                          <span className="navigation-gift-copy">
-                            You grow your list, and the customer gets an extra reason to come back.
-                          </span>
-                        </div>
-                      </li>
-                      <li className="list-item">
-                        <div className="navigation-gift-card">
-                          <span className="navigation-gift-badge navigation-gift-badge--gold">
-                            Team Favorite
-                          </span>
-                          <span className="navigation-gift-title">
-                            Buy 2 gift cards and earn a free pastry add-on with your own order
-                          </span>
-                          <span className="navigation-gift-copy">
-                            Encourages gifting while keeping the reward low-cost and high-feel.
-                          </span>
-                        </div>
-                      </li>
+                      {giftCardMenuItems.map((item) => (
+                        <li key={item.title} className="list-item">
+                          <div className="navigation-gift-card">
+                            <span
+                              className={`navigation-gift-badge${item.badgeClassName}`}
+                            >
+                              {item.badge}
+                            </span>
+                            <span className="navigation-gift-title">
+                              {item.title}
+                            </span>
+                            <span className="navigation-gift-copy">
+                              {item.copy}
+                            </span>
+                          </div>
+                        </li>
+                      ))}
                     </ul>
                 </li>
                 <li className="navigation-link-item">
@@ -642,6 +640,118 @@ const Navigation = (props) => {
                 <li className="navigation-overlay-item">
                   <div
                     className={`navigation-overlay-link navigation-overlay-accordion${
+                      activeMobileSection === 'shop' ? ' is-open' : ''
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      className="navigation-overlay-toggle"
+                      aria-expanded={activeMobileSection === 'shop'}
+                      aria-controls="mobileShopPanel"
+                      onClick={() => toggleMobileSection('shop')}
+                    >
+                      <span>Shop</span>
+                      <svg
+                        className="navigation-overlay-toggle-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="m6 9 6 6 6-6"></path>
+                      </svg>
+                    </button>
+                    {activeMobileSection === 'shop' ? (
+                      <div
+                        id="mobileShopPanel"
+                        className="navigation-mobile-panel"
+                      >
+                        <ul className="navigation-thq-mobile-shop-list-elm list">
+                          <li className="list-item">
+                            <Link href="/cocoamocha1" legacyBehavior>
+                              <a onClick={closeMobileMenu}>
+                                <div className="navigation-thq-mobile-shop-item-elm1 mobile-shop-item">
+                                  <span className="product-icon">&#9749;</span>
+                                  <span>
+                                    {' '}
+                                    Ethiopian Yirgacheffe Coffee
+                                    <span
+                                      dangerouslySetInnerHTML={{
+                                        __html: ' ',
+                                      }}
+                                    />
+                                  </span>
+                                </div>
+                              </a>
+                            </Link>
+                          </li>
+                          <li className="list-item">
+                            <Link href="/cocoamocha2" legacyBehavior>
+                              <a onClick={closeMobileMenu}>
+                                <div className="navigation-thq-mobile-shop-item-elm2 mobile-shop-item">
+                                  <span className="product-icon">&#9749;</span>
+                                  <span>
+                                    {' '}
+                                    Colombian Supremo Coffee
+                                    <span
+                                      dangerouslySetInnerHTML={{
+                                        __html: ' ',
+                                      }}
+                                    />
+                                  </span>
+                                </div>
+                              </a>
+                            </Link>
+                          </li>
+                          <li className="list-item">
+                            <Link href="/cocoamocha3" legacyBehavior>
+                              <a onClick={closeMobileMenu}>
+                                <div className="navigation-thq-mobile-shop-item-elm3 mobile-shop-item">
+                                  <span className="product-icon">&#9749;</span>
+                                  <span>
+                                    {' '}
+                                    Sumatra Mandheling Coffee
+                                    <span
+                                      dangerouslySetInnerHTML={{
+                                        __html: ' ',
+                                      }}
+                                    />
+                                  </span>
+                                </div>
+                              </a>
+                            </Link>
+                          </li>
+                          <li className="list-item">
+                            <Link href="/cocoamocha4" legacyBehavior>
+                              <a onClick={closeMobileMenu}>
+                                <div className="navigation-thq-mobile-shop-item-elm4 mobile-shop-item">
+                                  <span className="product-icon">&#9749;</span>
+                                  <span>
+                                    {' '}
+                                    Guatemala Antigua Coffee
+                                    <span
+                                      dangerouslySetInnerHTML={{
+                                        __html: ' ',
+                                      }}
+                                    />
+                                  </span>
+                                </div>
+                              </a>
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                    ) : null}
+                  </div>
+                </li>
+                <li className="navigation-overlay-item">
+                  <div
+                    className={`navigation-overlay-link navigation-overlay-accordion${
                       activeMobileSection === 'rewards' ? ' is-open' : ''
                     }`}
                   >
@@ -668,17 +778,30 @@ const Navigation = (props) => {
                         <path d="m6 9 6 6 6-6"></path>
                       </svg>
                     </button>
-                    <div
-                      id="mobileRewardsPanel"
-                      className="navigation-mobile-panel"
-                      hidden={activeMobileSection !== 'rewards'}
-                    >
-                      <div className="navigation-mobile-rewards">
-                      <span>Buy 5 handcrafted drinks, get 1 classic brewed coffee free.</span>
-                      <span>Spend $18 and unlock 50% off a pastry.</span>
-                      <span>Three early orders earn a free flavor add-on.</span>
+                    {activeMobileSection === 'rewards' ? (
+                      <div
+                        id="mobileRewardsPanel"
+                        className="navigation-mobile-panel"
+                      >
+                        <ul className="navigation-mobile-feature-list list">
+                          {rewardsMenuItems.map((item) => (
+                            <li key={item.title} className="list-item">
+                              <div className="navigation-mobile-feature-card">
+                                <span className="navigation-mobile-feature-badge">
+                                  {item.badge}
+                                </span>
+                                <span className="navigation-mobile-feature-title">
+                                  {item.title}
+                                </span>
+                                <span className="navigation-mobile-feature-copy">
+                                  {item.copy}
+                                </span>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                    </div>
+                    ) : null}
                   </div>
                 </li>
                 <li className="navigation-overlay-item">
@@ -710,128 +833,30 @@ const Navigation = (props) => {
                         <path d="m6 9 6 6 6-6"></path>
                       </svg>
                     </button>
-                    <div
-                      id="mobileGiftCardsPanel"
-                      className="navigation-mobile-panel"
-                      hidden={activeMobileSection !== 'gift-cards'}
-                    >
-                      <div className="navigation-mobile-rewards">
-                      <span>Load $25 and get a $3 bounce-back bonus.</span>
-                      <span>Send a digital gift card and unlock a surprise email-club reward.</span>
-                      <span>Buy 2 gift cards and earn a free pastry add-on.</span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li className="navigation-overlay-item list-item">
-                  <div
-                    className={`navigation-thq-navigation-overlay-link-elm5 navigation-overlay-link navigation-overlay-accordion${
-                      activeMobileSection === 'shop' ? ' is-open' : ''
-                    }`}
-                  >
-                    <button
-                      type="button"
-                      className="navigation-overlay-toggle"
-                      aria-expanded={activeMobileSection === 'shop'}
-                      aria-controls="mobileShopPanel"
-                      onClick={() => toggleMobileSection('shop')}
-                    >
-                      <span>Shop</span>
-                      <svg
-                        className="navigation-overlay-toggle-icon"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
+                    {activeMobileSection === 'gift-cards' ? (
+                      <div
+                        id="mobileGiftCardsPanel"
+                        className="navigation-mobile-panel"
                       >
-                        <path d="m6 9 6 6 6-6"></path>
-                      </svg>
-                    </button>
-                    <div
-                      id="mobileShopPanel"
-                      className="navigation-mobile-panel"
-                      hidden={activeMobileSection !== 'shop'}
-                    >
-                    <ul className="navigation-thq-mobile-shop-list-elm list">
-                      <li className="list-item">
-                        <Link href="/cocoamocha1" legacyBehavior>
-                          <a onClick={closeMobileMenu}>
-                            <div className="navigation-thq-mobile-shop-item-elm1 mobile-shop-item">
-                              <span className="product-icon">☕</span>
-                              <span>
-                                {' '}
-                                Ethiopian Yirgacheffe Coffee
-                                <span
-                                  dangerouslySetInnerHTML={{
-                                    __html: ' ',
-                                  }}
-                                />
-                              </span>
-                            </div>
-                          </a>
-                        </Link>
-                      </li>
-                      <li className="list-item">
-                        <Link href="/cocoamocha2" legacyBehavior>
-                          <a onClick={closeMobileMenu}>
-                            <div className="navigation-thq-mobile-shop-item-elm2 mobile-shop-item">
-                              <span className="product-icon">☕</span>
-                              <span>
-                                {' '}
-                                Colombian Supremo Coffee
-                                <span
-                                  dangerouslySetInnerHTML={{
-                                    __html: ' ',
-                                  }}
-                                />
-                              </span>
-                            </div>
-                          </a>
-                        </Link>
-                      </li>
-                      <li className="list-item">
-                        <Link href="/cocoamocha3" legacyBehavior>
-                          <a onClick={closeMobileMenu}>
-                            <div className="navigation-thq-mobile-shop-item-elm3 mobile-shop-item">
-                              <span className="product-icon">☕</span>
-                              <span>
-                                {' '}
-                                Sumatra Mandheling Coffee
-                                <span
-                                  dangerouslySetInnerHTML={{
-                                    __html: ' ',
-                                  }}
-                                />
-                              </span>
-                            </div>
-                          </a>
-                        </Link>
-                      </li>
-                      <li className="list-item">
-                        <Link href="/cocoamocha4" legacyBehavior>
-                          <a onClick={closeMobileMenu}>
-                            <div className="navigation-thq-mobile-shop-item-elm4 mobile-shop-item">
-                              <span className="product-icon">☕</span>
-                              <span>
-                                {' '}
-                                Guatemala Antigua Coffee
-                                <span
-                                  dangerouslySetInnerHTML={{
-                                    __html: ' ',
-                                  }}
-                                />
-                              </span>
-                            </div>
-                          </a>
-                        </Link>
-                      </li>
-                    </ul>
-                    </div>
+                        <ul className="navigation-mobile-feature-list list">
+                          {giftCardMenuItems.map((item) => (
+                            <li key={item.title} className="list-item">
+                              <div className="navigation-mobile-feature-card navigation-mobile-feature-card--gift">
+                                <span className="navigation-mobile-feature-badge navigation-mobile-feature-badge--gift">
+                                  {item.badge}
+                                </span>
+                                <span className="navigation-mobile-feature-title">
+                                  {item.title}
+                                </span>
+                                <span className="navigation-mobile-feature-copy">
+                                  {item.copy}
+                                </span>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
                   </div>
                 </li>
                 <li className="navigation-overlay-item">
@@ -1173,16 +1198,58 @@ const Navigation = (props) => {
             width: 100%;
             display: block;
           }
-          .navigation-mobile-rewards {
-            display: flex;
-            gap: 10px;
-            margin-top: 12px;
-            color: var(--color-on-surface-secondary);
-            font-size: 0.92rem;
-            line-height: 1.5;
-            flex-direction: column;
-            padding-left: 16px;
-            border-left: 2px solid var(--color-secondary);
+          .navigation-mobile-panel[hidden] {
+            display: none !important;
+          }
+          .navigation-mobile-feature-list {
+            gap: 0.7rem;
+            display: grid;
+            width: 100%;
+            margin-top: 0.75rem;
+            padding: 0;
+          }
+          .navigation-mobile-feature-card {
+            gap: 0.55rem;
+            display: grid;
+            width: 100%;
+            padding: 0.95rem;
+            border-radius: 18px;
+            background:
+              radial-gradient(circle at top right, rgba(255, 205, 153, 0.18), transparent 38%),
+              rgba(255, 248, 239, 0.97);
+            border: 1px solid rgba(126, 67, 31, 0.08);
+            box-shadow: 0 12px 24px rgba(84, 45, 21, 0.06);
+          }
+          .navigation-mobile-feature-card--gift {
+            background:
+              radial-gradient(circle at top right, rgba(244, 176, 167, 0.18), transparent 36%),
+              rgba(255, 248, 239, 0.97);
+          }
+          .navigation-mobile-feature-badge {
+            width: fit-content;
+            padding: 0.26rem 0.62rem;
+            border-radius: 999px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #87451f;
+            background: rgba(255, 209, 161, 0.42);
+          }
+          .navigation-mobile-feature-badge--gift {
+            color: #8b3b48;
+            background: rgba(246, 201, 209, 0.5);
+          }
+          .navigation-mobile-feature-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            line-height: 1.35;
+            color: #2f1608;
+          }
+          .navigation-mobile-feature-copy {
+            font-size: 0.82rem;
+            line-height: 1.45;
+            color: rgba(47, 22, 8, 0.72);
           }
           .navigation-thq-dropdown2 {
             cursor: pointer;
@@ -1648,19 +1715,11 @@ const Navigation = (props) => {
               background: rgba(255, 248, 239, 0.96);
               border: 1px solid rgba(126, 67, 31, 0.08);
             }
-            .navigation-mobile-rewards {
-              gap: 0.55rem;
-              width: 100%;
+            .navigation-mobile-feature-list {
               margin-top: 0;
-              padding-left: 0;
-              border-left: 0;
             }
-            .navigation-mobile-rewards span {
-              display: block;
-              padding: 0.75rem 0.9rem;
-              border-radius: 16px;
-              background: rgba(255, 248, 239, 0.96);
-              border: 1px solid rgba(126, 67, 31, 0.08);
+            .navigation-mobile-feature-card {
+              box-shadow: 0 10px 22px rgba(84, 45, 21, 0.06);
             }
             .navigation-overlay-footer {
               padding-top: 1.1rem;
