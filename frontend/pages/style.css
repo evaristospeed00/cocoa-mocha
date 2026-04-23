@@ -3438,67 +3438,70 @@ html {
     line-height: 1.7;
   }
 
-  .welcome-hero-content-wrapper,
+  .welcome-hero-content-wrapper {
+    justify-content: center;
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+
+  .welcome-hero-card,
   .featured-drinks-header,
   .quick-explore-header,
   .trust-proof-header,
   .how-to-order-header,
   .reviews-header,
-  .rewards-bubble-header {
-    text-align: left;
+  .rewards-teaser-content,
+  .footer-brand-column,
+  .footer-newsletter-column {
+    text-align: center;
+  }
+
+  .welcome-hero-card {
+    margin: 0 auto;
+    width: min(100%, 34rem);
+    transform: rotate(-1deg);
+  }
+
+  .welcome-hero-brand {
+    justify-content: center;
   }
 
   .welcome-hero-nav,
   .featured-drinks-actions,
-  .coffee-hero-actions,
-  .hero-product-actions,
-  .checkout-card-top,
-  .footer-legal {
-    width: 100%;
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .welcome-hero-nav > a,
-  .featured-drinks-actions > a,
-  .featured-drinks-actions > button,
-  .coffee-hero-actions > a,
-  .coffee-hero-actions > button,
-  .hero-product-actions > a,
-  .hero-product-actions > button {
-    width: 100%;
-  }
-
-  .featured-drinks-actions .btn,
-  .featured-drinks-actions .featured-drinks-link,
-  .coffee-hero-actions .btn,
-  .hero-product-actions .btn {
-    width: 100%;
+  .checkout-card-top {
+    align-items: center;
     justify-content: center;
-    text-align: center;
+  }
+
+  .welcome-hero-nav > a {
+    width: auto;
+    max-width: 100%;
+  }
+
+  .welcome-hero-nav > a > div,
+  .welcome-hero-nav .btn {
+    width: auto;
+    min-width: min(100%, 16rem);
   }
 
   .featured-drinks-rail,
   .reviews-grid,
   .related-grid {
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: none;
   }
 
   .featured-drinks-rail {
-    display: grid;
+    display: flex;
     gap: 1rem;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(calc(100vw - 2.5rem), 1fr);
-    overflow-x: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow: visible;
     padding-bottom: 0.2rem;
-    scrollbar-width: none;
-  }
-
-  .featured-drinks-rail::-webkit-scrollbar {
-    display: none;
   }
 
   .featured-drinks-card {
+    flex: 1 1 100%;
+    max-width: 32rem;
     min-height: 100%;
   }
 
@@ -3519,6 +3522,7 @@ html {
   .footer-legal-links,
   .coffee-selector-grid {
     grid-template-columns: 1fr;
+    justify-items: center;
   }
 
   .how-to-order-steps {
@@ -3587,6 +3591,29 @@ html {
     width: 100%;
   }
 
+  .featured-drinks-card-content,
+  .quick-explore-feature,
+  .quick-explore-item,
+  .trust-proof-card,
+  .review-card,
+  .related-card {
+    text-align: center;
+  }
+
+  .quick-explore-pills,
+  .featured-drinks-actions,
+  .footer-social-links,
+  .footer-legal-links {
+    justify-content: center;
+  }
+
+  .coffee-hero-actions,
+  .hero-product-actions,
+  .footer-legal {
+    align-items: center;
+    justify-content: center;
+  }
+
   .checkout-hero {
     padding-left: max(1rem, env(safe-area-inset-left));
     padding-right: max(1rem, env(safe-area-inset-right));
@@ -3595,8 +3622,8 @@ html {
 
   .checkout-status,
   .checkout-pill {
-    width: 100%;
-    justify-content: flex-start;
+    width: auto;
+    justify-content: center;
   }
 
   .checkout-item {
@@ -3649,15 +3676,15 @@ html {
   }
 
   .featured-drinks-rail {
-    grid-auto-columns: minmax(calc(100vw - 2rem), 1fr);
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .featured-drinks-name-row,
   .checkout-card-top,
   .checkout-total-row,
-  .footer-legal,
-  .footer-legal-links {
-    align-items: flex-start;
+  .footer-legal {
+    align-items: center;
     flex-direction: column;
   }
 
@@ -3672,5 +3699,14 @@ html {
     left: max(0.5rem, env(safe-area-inset-left));
     right: max(0.5rem, env(safe-area-inset-right));
     bottom: max(0.5rem, env(safe-area-inset-bottom));
+  }
+
+  .featured-drinks-card,
+  .quick-explore-feature,
+  .quick-explore-item,
+  .trust-proof-card,
+  .review-card,
+  .related-card {
+    max-width: none;
   }
 }
