@@ -29,8 +29,10 @@ const Home = (props) => {
   const [catalogSource, setCatalogSource] = useState(
     props.initialCatalogSource || 'fallback'
   )
+  const [activeFeaturedSlide, setActiveFeaturedSlide] = useState(0)
   const rewardsBubbleRef = useRef(null)
   const rewardsBubbleCloseTimerRef = useRef(null)
+  const drinksRailRef = useRef(null)
 
   const handleAddToCart = (product) => {
     addToCart(product)
@@ -181,6 +183,59 @@ const Home = (props) => {
     }
   }, [isRewardsBubbleOpen])
 
+  useEffect(() => {
+    if (!isRewardsBubbleOpen || typeof window === 'undefined') {
+      return undefined
+    }
+
+    if (window.innerWidth > 767) {
+      return undefined
+    }
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [isRewardsBubbleOpen])
+
+  useEffect(() => {
+    const rail = drinksRailRef.current
+
+    if (!rail) {
+      return undefined
+    }
+
+    const updateActiveSlide = () => {
+      const firstCard = rail.querySelector('.featured-drinks-card')
+
+      if (!firstCard) {
+        setActiveFeaturedSlide(0)
+        return
+      }
+
+      const cardWidth = firstCard.getBoundingClientRect().width
+      const styles = window.getComputedStyle(rail)
+      const gap = Number.parseFloat(styles.columnGap || styles.gap || '0') || 0
+      const slideWidth = Math.max(cardWidth + gap, 1)
+      const nextSlide = Math.round(rail.scrollLeft / slideWidth)
+
+      setActiveFeaturedSlide(
+        Math.min(Math.max(nextSlide, 0), Math.max(featuredCoffees.length - 1, 0))
+      )
+    }
+
+    updateActiveSlide()
+    rail.addEventListener('scroll', updateActiveSlide, { passive: true })
+    window.addEventListener('resize', updateActiveSlide)
+
+    return () => {
+      rail.removeEventListener('scroll', updateActiveSlide)
+      window.removeEventListener('resize', updateActiveSlide)
+    }
+  }, [featuredCoffees.length])
+
   useEffect(
     () => () => {
       if (rewardsBubbleCloseTimerRef.current) {
@@ -290,7 +345,28 @@ const Home = (props) => {
                 : 'Showing local catalog fallback while backend data is unavailable.'}
             </p>
           </div>
-          <div id="drinksRail" className="featured-drinks-rail">
+          <div className="featured-drinks-meta">
+            <span className="featured-drinks-hint">Swipe to explore all four coffees</span>
+            <div
+              className="featured-drinks-pagination"
+              aria-label={`Featured product ${activeFeaturedSlide + 1} of ${featuredCoffees.length}`}
+            >
+              {featuredCoffees.map((coffee, index) => (
+                <span
+                  key={coffee.id}
+                  className={`featured-drinks-dot${
+                    index === activeFeaturedSlide ? ' is-active' : ''
+                  }`}
+                  aria-hidden="true"
+                ></span>
+              ))}
+            </div>
+          </div>
+          <div
+            id="drinksRail"
+            ref={drinksRailRef}
+            className="featured-drinks-rail"
+          >
             {featuredCoffees.map((coffee) => (
               <article key={coffee.id} className="featured-drinks-card">
                 <div className="featured-drinks-image-wrap">
@@ -939,12 +1015,20 @@ const Home = (props) => {
                     <span>Join Rewards &amp; Order</span>
                   </button>
                   {isRewardsBubbleOpen ? (
-                    <div
+                    <>
+                      <button
+                        type="button"
+                        className="rewards-bubble-backdrop"
+                        aria-label="Close rewards signup"
+                        onClick={closeRewardsBubble}
+                      ></button>
+                      <div
                       id="rewardsBubble"
                       className={`rewards-bubble${
                         isRewardsBubbleClosing ? ' rewards-bubble--closing' : ''
                       }`}
                       role="dialog"
+                      aria-modal="true"
                       aria-label="Rewards signup"
                     >
                       {showRewardsCelebration ? (
@@ -1023,7 +1107,8 @@ const Home = (props) => {
                           </p>
                         ) : null}
                       </form>
-                    </div>
+                      </div>
+                    </>
                   ) : null}
                 </div>
               </div>

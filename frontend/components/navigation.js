@@ -18,6 +18,7 @@ const Navigation = (props) => {
     clearCart,
   } = useGlobalContext()
   const cartRef = useRef(null)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [shopProducts, setShopProducts] = useState(
     coffeeSelectorProducts.map((product) => ({
       key: product.key,
@@ -101,6 +102,32 @@ const Navigation = (props) => {
       document.removeEventListener('keydown', handleEscape)
     }
   }, [closeCart, isCartOpen])
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) {
+      return undefined
+    }
+
+    const previousOverflow = document.body.style.overflow
+
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        setIsMobileMenuOpen(false)
+      }
+    }
+
+    document.body.style.overflow = 'hidden'
+    document.addEventListener('keydown', handleEscape)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      document.removeEventListener('keydown', handleEscape)
+    }
+  }, [isMobileMenuOpen])
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false)
+  }
 
   return (
     <>
@@ -528,10 +555,11 @@ const Navigation = (props) => {
                 </div>
               </div>
               <button
-                id="navToggle"
                 aria-label="Open Menu"
-                aria-expanded="false"
+                aria-controls="mobileOverlay"
+                aria-expanded={isMobileMenuOpen}
                 className="navigation-mobile-toggle"
+                onClick={() => setIsMobileMenuOpen(true)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -551,41 +579,27 @@ const Navigation = (props) => {
               </button>
             </div>
           </div>
-          <div id="mobileOverlay" className="navigation-mobile-overlay">
+          <div
+            id="mobileOverlay"
+            className={`navigation-mobile-overlay${
+              isMobileMenuOpen ? ' is-active' : ''
+            }`}
+            aria-hidden={!isMobileMenuOpen}
+            onClick={(event) => {
+              if (event.target === event.currentTarget) {
+                closeMobileMenu()
+              }
+            }}
+          >
             <div className="navigation-overlay-header">
-              <Link href="/" legacyBehavior>
-                <a>
-                  <div
-                    aria-label="Cocoa Mocha Home"
-                    className="navigation-logo-link"
-                  >
-                    <div className="navigation-logo-icon">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          fill="none"
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M10 2v2m4-2v2m2 4a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1M6 2v2"
-                        ></path>
-                      </svg>
-                    </div>
-                    <span className="navigation-brand-name section-title">
-                      Cocoa Mocha
-                    </span>
-                  </div>
-                </a>
-              </Link>
+              <div className="navigation-overlay-title-wrap">
+                <span className="navigation-overlay-kicker">Quick Menu</span>
+                <span className="navigation-overlay-title">Explore Cocoa Mocha</span>
+              </div>
               <button
-                id="navClose"
                 aria-label="Close Menu"
                 className="navigation-mobile-close"
+                onClick={closeMobileMenu}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -600,8 +614,8 @@ const Navigation = (props) => {
                     strokeLinejoin="round"
                     strokeWidth="2"
                   >
-                    <rect width="18" height="18" x="3" y="3" rx="2"></rect>
-                    <path d="M3 15h18m-6-7l-3 3l-3-3"></path>
+                    <path d="M18 6L6 18"></path>
+                    <path d="M6 6l12 12"></path>
                   </g>
                 </svg>
               </button>
@@ -610,7 +624,7 @@ const Navigation = (props) => {
               <ul className="navigation-overlay-links">
                 <li className="navigation-overlay-item">
                   <Link href="/" legacyBehavior>
-                    <a>
+                    <a onClick={closeMobileMenu}>
                       <div className="navigation-overlay-link">
                         <span>Home</span>
                       </div>
@@ -643,7 +657,7 @@ const Navigation = (props) => {
                     <ul className="navigation-thq-mobile-shop-list-elm list">
                       <li className="list-item">
                         <Link href="/cocoamocha1" legacyBehavior>
-                          <a>
+                          <a onClick={closeMobileMenu}>
                             <div className="navigation-thq-mobile-shop-item-elm1 mobile-shop-item">
                               <span className="product-icon">☕</span>
                               <span>
@@ -661,7 +675,7 @@ const Navigation = (props) => {
                       </li>
                       <li className="list-item">
                         <Link href="/cocoamocha2" legacyBehavior>
-                          <a>
+                          <a onClick={closeMobileMenu}>
                             <div className="navigation-thq-mobile-shop-item-elm2 mobile-shop-item">
                               <span className="product-icon">☕</span>
                               <span>
@@ -679,7 +693,7 @@ const Navigation = (props) => {
                       </li>
                       <li className="list-item">
                         <Link href="/cocoamocha3" legacyBehavior>
-                          <a>
+                          <a onClick={closeMobileMenu}>
                             <div className="navigation-thq-mobile-shop-item-elm3 mobile-shop-item">
                               <span className="product-icon">☕</span>
                               <span>
@@ -697,7 +711,7 @@ const Navigation = (props) => {
                       </li>
                       <li className="list-item">
                         <Link href="/cocoamocha4" legacyBehavior>
-                          <a>
+                          <a onClick={closeMobileMenu}>
                             <div className="navigation-thq-mobile-shop-item-elm4 mobile-shop-item">
                               <span className="product-icon">☕</span>
                               <span>
@@ -718,7 +732,7 @@ const Navigation = (props) => {
                 </li>
                 <li className="navigation-overlay-item">
                   <Link href="/about-us" legacyBehavior>
-                    <a>
+                    <a onClick={closeMobileMenu}>
                       <div className="navigation-overlay-link">
                         <span>About Us</span>
                       </div>
@@ -728,7 +742,7 @@ const Navigation = (props) => {
               </ul>
               <div className="navigation-overlay-footer">
                 <Link href="/" legacyBehavior>
-                  <a>
+                  <a onClick={closeMobileMenu}>
                     <div className="navigation-cta btn btn-primary btn-lg">
                       <span>Order Now</span>
                     </div>
@@ -754,65 +768,7 @@ const Navigation = (props) => {
             ></Script>
           </div>
         </div>
-        <div className="navigation-container4">
-          <div className="navigation-container5">
-            <Script
-              html={`<script defer data-name="navigation-logic">
-(function(){
-  const navToggle = document.getElementById("navToggle")
-  const navClose = document.getElementById("navClose")
-  const mobileOverlay = document.getElementById("mobileOverlay")
-  const body = document.body
-
-  if (!navToggle || !navClose || !mobileOverlay) {
-    return
-  }
-
-  function openMenu() {
-    mobileOverlay.style.display = "flex"
-    setTimeout(() => {
-      mobileOverlay.classList.add("is-active")
-      navToggle.setAttribute("aria-expanded", "true")
-      body.style.overflow = "hidden"
-    }, 10)
-  }
-
-  function closeMenu() {
-    mobileOverlay.classList.remove("is-active")
-    navToggle.setAttribute("aria-expanded", "false")
-    body.style.overflow = ""
-
-    setTimeout(() => {
-      if (!mobileOverlay.classList.contains("is-active")) {
-        mobileOverlay.style.display = "none"
-      }
-    }, 400)
-  }
-
-  navToggle.addEventListener("click", openMenu)
-  navClose.addEventListener("click", closeMenu)
-
-  mobileOverlay.addEventListener("click", (e) => {
-    if (
-      e.target === mobileOverlay ||
-      e.target.closest("a[href]") ||
-      e.target.closest(".mobile-shop-item")
-    ) {
-      closeMenu()
-    }
-  })
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && mobileOverlay.classList.contains("is-active")) {
-      closeMenu()
-    }
-  })
-
-})()
-</script>`}
-            ></Script>
-          </div>
-        </div>
+        <div className="navigation-container4"></div>
       </div>
       <style jsx>
         {`
@@ -1370,6 +1326,29 @@ const Navigation = (props) => {
             display: grid;
             grid-template-columns: 1fr 1fr;
           }
+          .navigation-overlay-title-wrap {
+            display: flex;
+            min-width: 0;
+            flex-direction: column;
+          }
+          .navigation-overlay-kicker {
+            color: #a25c2d;
+            font-size: 0.74rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+          }
+          .navigation-overlay-title {
+            color: var(--color-on-surface);
+            font-size: 1.1rem;
+            font-weight: 800;
+            line-height: 1.2;
+          }
+          .navigation-overlay-item > a,
+          .navigation-thq-mobile-shop-list-elm a {
+            width: 100%;
+            display: block;
+          }
           .navigation-overlay-item {
             width: 100%;
           }
@@ -1425,9 +1404,58 @@ const Navigation = (props) => {
               height: 76px;
             }
             .navigation-mobile-overlay {
+              display: flex;
+              opacity: 0;
+              visibility: hidden;
+              pointer-events: none;
+              padding: 0;
+              transform: none;
+              background:
+                linear-gradient(180deg, rgba(62, 28, 12, 0.12), rgba(32, 13, 4, 0.34));
+              transition: opacity 0.25s ease, visibility 0.25s ease;
+            }
+            .navigation-mobile-overlay.is-active {
+              opacity: 1;
+              visibility: visible;
+              pointer-events: auto;
+            }
+            .navigation-overlay-header,
+            .navigation-overlay-content {
+              width: min(100%, 32rem);
+              margin-left: auto;
               background:
                 radial-gradient(circle at top right, rgba(255, 193, 132, 0.24), transparent 26%),
                 linear-gradient(180deg, rgba(255, 251, 244, 0.98), rgba(255, 244, 231, 0.98));
+            }
+            .navigation-overlay-header {
+              border-radius: 30px 0 0 0;
+              box-shadow: -14px 0 38px rgba(64, 29, 12, 0.14);
+            }
+            .navigation-overlay-content {
+              min-height: 0;
+              border-radius: 0 0 0 30px;
+              box-shadow: -14px 18px 38px rgba(64, 29, 12, 0.14);
+            }
+            .navigation-mobile-toggle {
+              width: 46px;
+              height: 46px;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              border-radius: 16px;
+              background: rgba(255, 248, 239, 0.9);
+              border: 1px solid rgba(126, 67, 31, 0.1);
+              box-shadow: 0 10px 24px rgba(84, 45, 21, 0.08);
+            }
+            .navigation-mobile-close {
+              width: 44px;
+              height: 44px;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              border-radius: 16px;
+              background: rgba(255, 255, 255, 0.72);
+              border: 1px solid rgba(126, 67, 31, 0.1);
             }
             .navigation-overlay-header {
               padding-top: max(0.9rem, env(safe-area-inset-top));
@@ -1443,7 +1471,7 @@ const Navigation = (props) => {
               gap: 0.8rem;
               width: 100%;
               display: flex;
-              font-size: 1.08rem;
+              font-size: 1.02rem;
               line-height: 1.25;
               align-items: flex-start;
               padding: 1rem 1.05rem;
@@ -1474,6 +1502,7 @@ const Navigation = (props) => {
               gap: 0.7rem;
               display: flex;
               align-items: center;
+              width: 100%;
               padding: 0.85rem 0.95rem;
               border-radius: 16px;
               background: rgba(255, 248, 239, 0.96);
