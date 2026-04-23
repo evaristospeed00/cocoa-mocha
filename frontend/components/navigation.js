@@ -68,7 +68,6 @@ const Navigation = (props) => {
       title: product.fallbackTitle,
     }))
   )
-  const [activeMobileSection, setActiveMobileSection] = useState('')
 
   const totalItems = useMemo(() => getCartItemCount(cart), [cart])
   const subtotal = useMemo(() => getCartSubtotal(cart), [cart])
@@ -170,13 +169,6 @@ const Navigation = (props) => {
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false)
-    setActiveMobileSection('')
-  }
-
-  const toggleMobileSection = (section) => {
-    setActiveMobileSection((currentSection) =>
-      currentSection === section ? '' : section
-    )
   }
 
   return (
@@ -638,18 +630,8 @@ const Navigation = (props) => {
                   </Link>
                 </li>
                 <li className="navigation-overlay-item">
-                  <div
-                    className={`navigation-overlay-link navigation-overlay-accordion${
-                      activeMobileSection === 'shop' ? ' is-open' : ''
-                    }`}
-                  >
-                    <button
-                      type="button"
-                      className="navigation-overlay-toggle"
-                      aria-expanded={activeMobileSection === 'shop'}
-                      aria-controls="mobileShopPanel"
-                      onClick={() => toggleMobileSection('shop')}
-                    >
+                  <details className="navigation-overlay-link navigation-overlay-accordion navigation-mobile-disclosure">
+                    <summary className="navigation-overlay-toggle">
                       <span>Shop</span>
                       <svg
                         className="navigation-overlay-toggle-icon"
@@ -665,8 +647,7 @@ const Navigation = (props) => {
                       >
                         <path d="m6 9 6 6 6-6"></path>
                       </svg>
-                    </button>
-                    {activeMobileSection === 'shop' ? (
+                    </summary>
                       <div
                         id="mobileShopPanel"
                         className="navigation-mobile-panel"
@@ -746,22 +727,11 @@ const Navigation = (props) => {
                           </li>
                         </ul>
                       </div>
-                    ) : null}
-                  </div>
+                  </details>
                 </li>
                 <li className="navigation-overlay-item">
-                  <div
-                    className={`navigation-overlay-link navigation-overlay-accordion${
-                      activeMobileSection === 'rewards' ? ' is-open' : ''
-                    }`}
-                  >
-                    <button
-                      type="button"
-                      className="navigation-overlay-toggle"
-                      aria-expanded={activeMobileSection === 'rewards'}
-                      aria-controls="mobileRewardsPanel"
-                      onClick={() => toggleMobileSection('rewards')}
-                    >
+                  <details className="navigation-overlay-link navigation-overlay-accordion navigation-mobile-disclosure">
+                    <summary className="navigation-overlay-toggle">
                       <span>Rewards</span>
                       <svg
                         className="navigation-overlay-toggle-icon"
@@ -777,8 +747,7 @@ const Navigation = (props) => {
                       >
                         <path d="m6 9 6 6 6-6"></path>
                       </svg>
-                    </button>
-                    {activeMobileSection === 'rewards' ? (
+                    </summary>
                       <div
                         id="mobileRewardsPanel"
                         className="navigation-mobile-panel"
@@ -801,22 +770,11 @@ const Navigation = (props) => {
                           ))}
                         </ul>
                       </div>
-                    ) : null}
-                  </div>
+                  </details>
                 </li>
                 <li className="navigation-overlay-item">
-                  <div
-                    className={`navigation-overlay-link navigation-overlay-accordion${
-                      activeMobileSection === 'gift-cards' ? ' is-open' : ''
-                    }`}
-                  >
-                    <button
-                      type="button"
-                      className="navigation-overlay-toggle"
-                      aria-expanded={activeMobileSection === 'gift-cards'}
-                      aria-controls="mobileGiftCardsPanel"
-                      onClick={() => toggleMobileSection('gift-cards')}
-                    >
+                  <details className="navigation-overlay-link navigation-overlay-accordion navigation-mobile-disclosure">
+                    <summary className="navigation-overlay-toggle">
                       <span>Gift Cards</span>
                       <svg
                         className="navigation-overlay-toggle-icon"
@@ -832,8 +790,7 @@ const Navigation = (props) => {
                       >
                         <path d="m6 9 6 6 6-6"></path>
                       </svg>
-                    </button>
-                    {activeMobileSection === 'gift-cards' ? (
+                    </summary>
                       <div
                         id="mobileGiftCardsPanel"
                         className="navigation-mobile-panel"
@@ -856,8 +813,7 @@ const Navigation = (props) => {
                           ))}
                         </ul>
                       </div>
-                    ) : null}
-                  </div>
+                  </details>
                 </li>
                 <li className="navigation-overlay-item">
                   <Link href="/about-us" legacyBehavior>
@@ -1173,6 +1129,15 @@ const Navigation = (props) => {
             align-items: stretch;
             flex-direction: column;
           }
+          .navigation-mobile-disclosure {
+            padding: 1rem 1.05rem;
+          }
+          .navigation-mobile-disclosure summary {
+            list-style: none;
+          }
+          .navigation-mobile-disclosure summary::-webkit-details-marker {
+            display: none;
+          }
           .navigation-overlay-toggle {
             gap: 0.85rem;
             width: 100%;
@@ -1191,7 +1156,8 @@ const Navigation = (props) => {
             flex-shrink: 0;
             transition: transform 0.25s ease;
           }
-          .navigation-overlay-accordion.is-open .navigation-overlay-toggle-icon {
+          .navigation-overlay-accordion.is-open .navigation-overlay-toggle-icon,
+          .navigation-mobile-disclosure[open] .navigation-overlay-toggle-icon {
             transform: rotate(180deg);
           }
           .navigation-mobile-panel {
@@ -1686,6 +1652,9 @@ const Navigation = (props) => {
             }
             .navigation-overlay-accordion {
               gap: 0.85rem;
+            }
+            .navigation-mobile-disclosure {
+              padding: 1rem 1.05rem;
             }
             .navigation-mobile-panel {
               margin-top: 0.1rem;
