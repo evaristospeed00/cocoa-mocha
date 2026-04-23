@@ -74,6 +74,23 @@ const AboutUs = () => {
                 and more emotionally memorable. Every page, every drink, and
                 every detail is meant to feel like a small celebration.
               </p>
+              <div className="about-visual about-visual--mobile">
+                <div className="about-portrait-card">
+                  <div className="about-portrait-glow"></div>
+                  <img
+                    src="/evaristo-ceo.jpg"
+                    alt="Evaristo Suarez Eichelmann, CEO of Cocoa Mocha"
+                    className="about-portrait"
+                  />
+                  <div className="about-quote">
+                    <p>
+                      "We never wanted to build just another coffee brand. We
+                      wanted to build a place people would trust, remember, and
+                      feel proud to return to."
+                    </p>
+                  </div>
+                </div>
+              </div>
               <div className="about-founder-card">
                 <span className="about-founder-eyebrow">Founder Story</span>
                 <h2 className="about-founder-title">
@@ -94,7 +111,7 @@ const AboutUs = () => {
                 </p>
               </div>
             </div>
-            <div className="about-visual">
+            <div className="about-visual about-visual--desktop">
               <div className="about-portrait-card">
                 <div className="about-portrait-glow"></div>
                 <img
@@ -237,6 +254,10 @@ const AboutUs = () => {
           display: flex;
           justify-content: center;
         }
+        .about-visual--mobile {
+          display: none;
+          margin-top: 1.6rem;
+        }
         .about-portrait-card {
           width: min(100%, 460px);
           padding: 1rem;
@@ -354,6 +375,9 @@ const AboutUs = () => {
           .about-visual {
             order: -1;
           }
+          .about-visual--mobile {
+            order: 0;
+          }
           .about-portrait-card {
             width: min(100%, 560px);
           }
@@ -364,6 +388,12 @@ const AboutUs = () => {
           }
           .about-shell {
             padding: 0 1rem;
+          }
+          .about-visual--mobile {
+            display: flex;
+          }
+          .about-visual--desktop {
+            display: none;
           }
           .about-founder-card,
           .about-timeline-card,
