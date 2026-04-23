@@ -101,6 +101,33 @@ export const getMedusaConfig = () => ({
   currencyCode: process.env.NEXT_PUBLIC_MEDUSA_PRICE_CURRENCY_CODE?.trim().toLowerCase() || '',
 })
 
+export const normalizeMedusaImageUrl = (url, backendUrl = getMedusaConfig().backendUrl) => {
+  const rawUrl = String(url || '').trim()
+  const normalizedBackendUrl = String(backendUrl || '').trim().replace(/\/+$/, '')
+
+  if (!rawUrl) {
+    return ''
+  }
+
+  if (rawUrl.startsWith('/static/')) {
+    return normalizedBackendUrl ? `${normalizedBackendUrl}${rawUrl}` : rawUrl
+  }
+
+  try {
+    const parsedUrl = new URL(rawUrl)
+    const isLocalStaticAsset =
+      parsedUrl.hostname === 'localhost' && parsedUrl.pathname.startsWith('/static/')
+
+    if (isLocalStaticAsset && normalizedBackendUrl) {
+      return `${normalizedBackendUrl}${parsedUrl.pathname}${parsedUrl.search}`
+    }
+
+    return parsedUrl.toString()
+  } catch (error) {
+    return rawUrl
+  }
+}
+
 let runtimeStorefrontConfigPromise = null
 
 const fetchRuntimeStorefrontConfig = async () => {
@@ -216,6 +243,33 @@ const buildProductQueryParams = async (extraParams = {}) => {
   })
 
   return `${productUrl.pathname}${productUrl.search}`
+}
+
+const normalizeMedusaProductImages = (product, backendUrl = getMedusaConfig().backendUrl) => {
+  if (!product) {
+    return product
+  }
+
+  const normalizedImages = Array.isArray(product.images)
+    ? product.images.map((image) => ({
+        ...image,
+        url: normalizeMedusaImageUrl(image?.url, backendUrl),
+      }))
+    : product.images
+
+  const normalizedVariants = Array.isArray(product.variants)
+    ? product.variants.map((variant) => ({
+        ...variant,
+        thumbnail: normalizeMedusaImageUrl(variant?.thumbnail, backendUrl),
+      }))
+    : product.variants
+
+  return {
+    ...product,
+    thumbnail: normalizeMedusaImageUrl(product.thumbnail, backendUrl),
+    images: normalizedImages,
+    variants: normalizedVariants,
+  }
 }
 
 const getVariantPrices = (variant = {}) => {
@@ -419,8 +473,10 @@ export const fetchMedusaProduct = async (productId) => {
       ? data.products[0]
       : null
 
+  const { backendUrl } = await resolveMedusaConfig()
+
   if (matchingProduct) {
-    return matchingProduct
+    return normalizeMedusaProductImages(matchingProduct, backendUrl)
   }
 
   const detailPath = await buildProductQueryParams()
@@ -430,7 +486,7 @@ export const fetchMedusaProduct = async (productId) => {
   const dataById = await medusaStoreFetch(
     detailQuery ? `${detailUrl.pathname}?${detailQuery}` : detailUrl.pathname
   )
-  return dataById?.product || null
+  return normalizeMedusaProductImages(dataById?.product || null, backendUrl)
 }
 
 export const fetchMedusaProductByHandle = async (handle) => {
@@ -443,7 +499,10 @@ export const fetchMedusaProductByHandle = async (handle) => {
     limit: 1,
   })
   const data = await medusaStoreFetch(listPath)
-  return Array.isArray(data?.products) ? data.products[0] || null : null
+  const { backendUrl } = await resolveMedusaConfig()
+  const product = Array.isArray(data?.products) ? data.products[0] || null : null
+
+  return normalizeMedusaProductImages(product, backendUrl)
 }
 
 export const getCoffeeSelectorOptions = async () => {
@@ -481,7 +540,11 @@ export const fetchMedusaProducts = async () => {
   }
 
   const data = await medusaStoreFetch(`${productUrl.pathname}${productUrl.search}`)
-  return Array.isArray(data?.products) ? data.products : []
+  const { backendUrl } = await resolveMedusaConfig()
+
+  return Array.isArray(data?.products)
+    ? data.products.map((product) => normalizeMedusaProductImages(product, backendUrl))
+    : []
 }
 
 export const createMedusaCart = async (regionId) => {

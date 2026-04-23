@@ -3,7 +3,10 @@ import { loadEnv, defineConfig, Modules, ContainerRegistrationKeys } from '@medu
 loadEnv(process.env.NODE_ENV || 'development', process.cwd())
 
 const PORT = Number(process.env.PORT || 9000)
-const BACKEND_URL = process.env.BACKEND_URL || `http://localhost:${PORT}`
+const BACKEND_URL =
+  process.env.BACKEND_URL ||
+  process.env.RENDER_EXTERNAL_URL ||
+  `http://localhost:${PORT}`
 const STORE_CORS = process.env.STORE_CORS || 'http://localhost:8000'
 const ADMIN_CORS = process.env.ADMIN_CORS || 'http://localhost:9000'
 const AUTH_CORS = process.env.AUTH_CORS || `${BACKEND_URL},${STORE_CORS},${ADMIN_CORS}`
