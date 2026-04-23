@@ -5,6 +5,76 @@ import {
   type MedusaResponse,
 } from "@medusajs/framework/http";
 
+const getPublicBackendUrl = () =>
+  (
+    process.env.BACKEND_URL ||
+    process.env.RENDER_EXTERNAL_URL ||
+    ""
+  )
+    .trim()
+    .replace(/\/+$/, "");
+
+const normalizeStaticAssetUrl = (value: string) => {
+  const rawValue = String(value || "").trim();
+  const publicBackendUrl = getPublicBackendUrl();
+
+  if (!rawValue) {
+    return rawValue;
+  }
+
+  if (rawValue.startsWith("/static/")) {
+    return publicBackendUrl ? `${publicBackendUrl}${rawValue}` : rawValue;
+  }
+
+  try {
+    const parsedUrl = new URL(rawValue);
+    const isLocalStaticAsset =
+      parsedUrl.hostname === "localhost" &&
+      parsedUrl.pathname.startsWith("/static/");
+
+    if (isLocalStaticAsset && publicBackendUrl) {
+      return `${publicBackendUrl}${parsedUrl.pathname}${parsedUrl.search}`;
+    }
+
+    return parsedUrl.toString();
+  } catch {
+    return rawValue;
+  }
+};
+
+const normalizeResponseBody = (payload: unknown): unknown => {
+  if (typeof payload === "string") {
+    return normalizeStaticAssetUrl(payload);
+  }
+
+  if (Array.isArray(payload)) {
+    return payload.map((entry) => normalizeResponseBody(entry));
+  }
+
+  if (!payload || typeof payload !== "object") {
+    return payload;
+  }
+
+  return Object.fromEntries(
+    Object.entries(payload).map(([key, value]) => [
+      key,
+      normalizeResponseBody(value),
+    ])
+  );
+};
+
+const normalizeJsonResponseMiddleware = (
+  req: MedusaRequest,
+  res: MedusaResponse,
+  next: MedusaNextFunction
+) => {
+  const originalJson = res.json.bind(res);
+
+  res.json = ((body: unknown) => originalJson(normalizeResponseBody(body))) as typeof res.json;
+
+  next();
+};
+
 const rootStatusMiddleware = (
   req: MedusaRequest,
   res: MedusaResponse,
@@ -179,6 +249,18 @@ const rootStatusMiddleware = (
 };
 
 export default defineMiddlewares([
+  {
+    matcher: "/admin/*",
+    middlewares: [normalizeJsonResponseMiddleware],
+  },
+  {
+    matcher: "/store/*",
+    middlewares: [normalizeJsonResponseMiddleware],
+  },
+  {
+    matcher: "/public-config",
+    middlewares: [normalizeJsonResponseMiddleware],
+  },
   {
     matcher: "/*",
     methods: ["GET"],
