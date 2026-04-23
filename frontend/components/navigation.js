@@ -1405,11 +1405,13 @@ const Navigation = (props) => {
             }
             .navigation-mobile-overlay {
               display: flex;
+              height: 100dvh;
               opacity: 0;
               visibility: hidden;
               pointer-events: none;
               padding: 0;
               transform: none;
+              overflow: hidden;
               background:
                 linear-gradient(180deg, rgba(62, 28, 12, 0.12), rgba(32, 13, 4, 0.34));
               transition: opacity 0.25s ease, visibility 0.25s ease;
@@ -1422,6 +1424,7 @@ const Navigation = (props) => {
             .navigation-overlay-header,
             .navigation-overlay-content {
               width: min(100%, 32rem);
+              max-width: 100%;
               margin-left: auto;
               background:
                 radial-gradient(circle at top right, rgba(255, 193, 132, 0.24), transparent 26%),
@@ -1461,11 +1464,17 @@ const Navigation = (props) => {
               padding-top: max(0.9rem, env(safe-area-inset-top));
             }
             .navigation-overlay-content {
-              min-height: auto;
+              flex: 1 1 auto;
+              min-height: 0;
+              max-height: calc(100dvh - max(5.25rem, calc(env(safe-area-inset-top) + 4.25rem)));
+              overflow-y: auto;
+              overscroll-behavior: contain;
+              -webkit-overflow-scrolling: touch;
               padding: 1rem 1rem max(1.5rem, env(safe-area-inset-bottom));
             }
             .navigation-overlay-links {
               gap: 0.85rem;
+              padding-bottom: 0.35rem;
             }
             .navigation-overlay-link {
               gap: 0.8rem;
@@ -1524,7 +1533,8 @@ const Navigation = (props) => {
             }
             .navigation-overlay-footer {
               padding-top: 1.1rem;
-              padding-bottom: 0.5rem;
+              padding-bottom: 0.75rem;
+              margin-top: auto;
             }
             .navigation-cart-toast {
               top: 78px;
