@@ -21,7 +21,7 @@
     "seed": "medusa exec ./src/scripts/seed.ts",
     "sync:admin-build": "node ./scripts/sync-admin-build.js",
     "stripe:sync-regions": "medusa exec ./src/scripts/sync-stripe-regions.ts",
-    "start": "medusa start",
+    "start": "npm run ensure:admin && medusa start",
     "dev": "medusa develop",
     "test:integration:http": "TEST_TYPE=integration:http NODE_OPTIONS=--experimental-vm-modules jest --silent=false --runInBand --forceExit",
     "test:integration:modules": "TEST_TYPE=integration:modules NODE_OPTIONS=--experimental-vm-modules jest --silent=false --runInBand --forceExit",
