@@ -3088,8 +3088,8 @@ body {
     max-width: 420px;
   }
   .rewards-teaser-content .section-title {
-    max-width: 10ch;
-    line-height: 1.02;
+    max-width: 12ch;
+    line-height: 1.06;
   }
   .rewards-teaser-perks {
     gap: 0.8rem;
@@ -3101,6 +3101,47 @@ body {
     background: rgba(255, 247, 239, 0.92);
     border: 1px solid rgba(126, 67, 31, 0.08);
     box-shadow: 0 12px 28px rgba(84, 45, 21, 0.06);
+  }
+  .rewards-teaser-card {
+    overflow: hidden;
+    position: relative;
+    border-radius: 28px;
+    border: 1px solid rgba(126, 67, 31, 0.12);
+    background:
+      radial-gradient(circle at top right, rgba(255, 203, 152, 0.28), transparent 34%),
+      linear-gradient(180deg, rgba(255, 250, 245, 0.98), rgba(255, 243, 233, 0.98));
+    box-shadow: 0 26px 50px rgba(84, 45, 21, 0.14);
+  }
+  .rewards-teaser-visual {
+    min-height: 0;
+    aspect-ratio: 1.15 / 1;
+    border-radius: 28px 28px 0 0;
+  }
+  .rewards-teaser-badge {
+    top: 0.9rem;
+    right: 0.9rem;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.82rem;
+    border-radius: 999px;
+    box-shadow: 0 14px 30px rgba(255, 110, 199, 0.22);
+  }
+  .rewards-teaser-content {
+    gap: 1rem;
+    padding: 1.35rem 1.15rem 1.2rem;
+    background:
+      linear-gradient(180deg, rgba(255, 250, 244, 0.9), rgba(255, 245, 235, 0.98));
+  }
+  .rewards-teaser-content .section-content {
+    max-width: 34ch;
+  }
+  .rewards-teaser-cta-wrap {
+    margin-top: 0.2rem;
+  }
+  .rewards-teaser-trigger,
+  .rewards-teaser-trigger.btn {
+    min-height: 56px;
+    border-radius: 18px;
+    box-shadow: 0 16px 34px rgba(255, 110, 199, 0.18);
   }
   .coffee-tab {
     padding: var(--spacing-md);
@@ -3190,6 +3231,16 @@ body {
   .welcome-hero-card {
     padding: 1.1rem;
     border-radius: 20px;
+  }
+  .rewards-teaser-card {
+    border-radius: 24px;
+  }
+  .rewards-teaser-visual {
+    aspect-ratio: 1.05 / 1;
+    border-radius: 24px 24px 0 0;
+  }
+  .rewards-teaser-content {
+    padding: 1.15rem 1rem 1rem;
   }
   .featured-drinks-card {
     flex-basis: 88vw;
