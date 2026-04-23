@@ -900,6 +900,16 @@ const Navigation = (props) => {
             box-shadow: 0 12px 30px rgba(84, 45, 21, 0.08);
             transition: box-shadow 0.25s ease, background 0.25s ease;
           }
+          .navigation-root::before {
+            content: '';
+            position: absolute;
+            top: calc(-1 * env(safe-area-inset-top, 0px));
+            left: 0;
+            right: 0;
+            height: env(safe-area-inset-top, 0px);
+            background: rgba(255, 254, 248, 0.98);
+            pointer-events: none;
+          }
           .navigation-container {
             gap: 24px;
             margin: 0 auto;
@@ -1559,7 +1569,7 @@ const Navigation = (props) => {
           }
           @media (max-width: 767px) {
             .navigation-spacer {
-              height: 76px;
+              height: calc(76px + env(safe-area-inset-top, 0px));
             }
             .navigation-mobile-overlay {
               display: flex;
