@@ -716,6 +716,15 @@ const Navigation = (props) => {
                     </ul>
                   </div>
                 </li>
+                <li className="navigation-overlay-item">
+                  <Link href="/about-us" legacyBehavior>
+                    <a>
+                      <div className="navigation-overlay-link">
+                        <span>About Us</span>
+                      </div>
+                    </a>
+                  </Link>
+                </li>
               </ul>
               <div className="navigation-overlay-footer">
                 <Link href="/" legacyBehavior>
@@ -755,6 +764,10 @@ const Navigation = (props) => {
   const mobileOverlay = document.getElementById("mobileOverlay")
   const body = document.body
 
+  if (!navToggle || !navClose || !mobileOverlay) {
+    return
+  }
+
   function openMenu() {
     mobileOverlay.style.display = "flex"
     setTimeout(() => {
@@ -780,7 +793,11 @@ const Navigation = (props) => {
   navClose.addEventListener("click", closeMenu)
 
   mobileOverlay.addEventListener("click", (e) => {
-    if (e.target.classList.contains("navigation-overlay-link")) {
+    if (
+      e.target === mobileOverlay ||
+      e.target.closest("a[href]") ||
+      e.target.closest(".mobile-shop-item")
+    ) {
       closeMenu()
     }
   })
@@ -1353,6 +1370,9 @@ const Navigation = (props) => {
             display: grid;
             grid-template-columns: 1fr 1fr;
           }
+          .navigation-overlay-item {
+            width: 100%;
+          }
           .navigation-cart-secondary,
           .navigation-cart-primary {
             width: 100%;
@@ -1403,6 +1423,79 @@ const Navigation = (props) => {
           @media (max-width: 767px) {
             .navigation-spacer {
               height: 76px;
+            }
+            .navigation-mobile-overlay {
+              background:
+                radial-gradient(circle at top right, rgba(255, 193, 132, 0.24), transparent 26%),
+                linear-gradient(180deg, rgba(255, 251, 244, 0.98), rgba(255, 244, 231, 0.98));
+            }
+            .navigation-overlay-header {
+              padding-top: max(0.9rem, env(safe-area-inset-top));
+            }
+            .navigation-overlay-content {
+              min-height: auto;
+              padding: 1rem 1rem max(1.5rem, env(safe-area-inset-bottom));
+            }
+            .navigation-overlay-links {
+              gap: 0.85rem;
+            }
+            .navigation-overlay-link {
+              gap: 0.8rem;
+              width: 100%;
+              display: flex;
+              font-size: 1.08rem;
+              line-height: 1.25;
+              align-items: flex-start;
+              padding: 1rem 1.05rem;
+              border-radius: 22px;
+              justify-content: space-between;
+              border: 1px solid rgba(126, 67, 31, 0.12);
+              background:
+                radial-gradient(circle at top right, rgba(255, 201, 138, 0.16), transparent 38%),
+                rgba(255, 255, 255, 0.78);
+              box-shadow: 0 14px 32px rgba(84, 45, 21, 0.08);
+            }
+            .navigation-overlay-link:hover {
+              color: var(--color-on-surface);
+              transform: none;
+            }
+            .navigation-thq-navigation-overlay-link-elm5 {
+              color: var(--color-on-surface) !important;
+            }
+            .navigation-thq-mobile-shop-list-elm {
+              gap: 0.6rem;
+              display: grid;
+              width: 100%;
+              margin-top: 0.85rem;
+              padding: 0;
+              border-left: 0;
+            }
+            .mobile-shop-item {
+              gap: 0.7rem;
+              display: flex;
+              align-items: center;
+              padding: 0.85rem 0.95rem;
+              border-radius: 16px;
+              background: rgba(255, 248, 239, 0.96);
+              border: 1px solid rgba(126, 67, 31, 0.08);
+            }
+            .navigation-mobile-rewards {
+              gap: 0.55rem;
+              width: 100%;
+              margin-top: 0.85rem;
+              padding-left: 0;
+              border-left: 0;
+            }
+            .navigation-mobile-rewards span {
+              display: block;
+              padding: 0.75rem 0.9rem;
+              border-radius: 16px;
+              background: rgba(255, 248, 239, 0.96);
+              border: 1px solid rgba(126, 67, 31, 0.08);
+            }
+            .navigation-overlay-footer {
+              padding-top: 1.1rem;
+              padding-bottom: 0.5rem;
             }
             .navigation-cart-toast {
               top: 78px;

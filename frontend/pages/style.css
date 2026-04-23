@@ -3385,7 +3385,7 @@ video {
   }
 }
 
-/* iPhone-first refinements */
+/* Mobile stability refinements */
 html {
   -webkit-text-size-adjust: 100%;
 }
@@ -3396,151 +3396,8 @@ html {
     padding-bottom: env(safe-area-inset-bottom);
   }
 
-  .welcome-hero,
-  .coffee-hero,
-  .hero-product-section,
-  .checkout-hero {
-    padding-top: max(6.75rem, calc(env(safe-area-inset-top) + 5.25rem));
-  }
-
-  .welcome-hero-card,
-  .featured-drinks-card,
-  .quick-explore-feature,
-  .quick-explore-item,
-  .trust-proof-card,
-  .how-to-order-step,
-  .review-card,
-  .related-card,
-  .rewards-teaser-card,
-  .coffee-hero-content,
-  .hero-product-content,
-  .checkout-card {
-    box-shadow: 0 16px 36px rgba(84, 45, 21, 0.12);
-  }
-
-  .hero-title,
-  .coffee-product-detail-hero-title,
-  .ethiopian-yirgacheffe-hero-title {
-    font-size: clamp(2.3rem, 10vw, 3.6rem);
-    letter-spacing: -0.03em;
-  }
-
-  .hero-subtitle,
-  .section-content,
-  .featured-drinks-description,
-  .quick-explore-feature-copy,
-  .quick-explore-copy,
-  .trust-proof-text,
-  .how-to-order-desc,
-  .footer-description,
-  .footer-newsletter-text {
-    font-size: 0.98rem;
-    line-height: 1.7;
-  }
-
-  .welcome-hero-content-wrapper {
-    justify-content: center;
-    padding-left: max(1rem, env(safe-area-inset-left));
-    padding-right: max(1rem, env(safe-area-inset-right));
-  }
-
-  .welcome-hero-card,
-  .featured-drinks-header,
-  .quick-explore-header,
-  .trust-proof-header,
-  .how-to-order-header,
-  .reviews-header,
-  .rewards-teaser-content,
-  .footer-brand-column,
-  .footer-newsletter-column {
-    text-align: center;
-  }
-
-  .welcome-hero-card {
-    margin: 0 auto;
-    width: min(100%, 34rem);
-    transform: rotate(-1deg);
-  }
-
-  .welcome-hero-brand {
-    justify-content: center;
-  }
-
-  .welcome-hero-nav,
-  .featured-drinks-actions,
-  .checkout-card-top {
-    align-items: center;
-    justify-content: center;
-  }
-
-  .welcome-hero-nav > a {
-    width: auto;
-    max-width: 100%;
-  }
-
-  .welcome-hero-nav > a > div,
-  .welcome-hero-nav .btn {
-    width: auto;
-    min-width: min(100%, 16rem);
-  }
-
-  .featured-drinks-rail,
-  .reviews-grid,
-  .related-grid {
-    scroll-snap-type: none;
-  }
-
-  .featured-drinks-rail {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-    overflow: visible;
-    padding-bottom: 0.2rem;
-  }
-
-  .featured-drinks-card {
-    flex: 1 1 100%;
-    max-width: 32rem;
-    min-height: 100%;
-  }
-
-  .quick-explore-grid,
-  .rewards-teaser-card,
-  .coffee-hero-container,
-  .hero-product-grid,
-  .product-rating-grid,
-  .checkout-shell {
-    grid-template-columns: 1fr;
-  }
-
-  .trust-proof-grid,
-  .reviews-grid,
-  .related-grid,
-  .footer-top-grid,
-  .footer-bottom,
-  .footer-legal-links,
-  .coffee-selector-grid {
-    grid-template-columns: 1fr;
-    justify-items: center;
-  }
-
-  .how-to-order-steps {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .how-to-order-connector {
-    display: none;
-  }
-
   .navigation-root {
     padding-top: env(safe-area-inset-top);
-  }
-
-  .navigation-mobile-overlay {
-    padding-top: max(1rem, env(safe-area-inset-top));
-    padding-bottom: max(1rem, env(safe-area-inset-bottom));
   }
 
   .navigation-cart-panel {
@@ -3550,7 +3407,6 @@ html {
     width: auto;
     max-height: min(74svh, 42rem);
     overflow: auto;
-    border-radius: 24px;
   }
 
   .navigation-cart-toast {
@@ -3560,79 +3416,8 @@ html {
     max-width: none;
   }
 
-  .navigation-cart-toast-name,
-  .navigation-cart-item-name,
-  .checkout-item strong {
-    overflow-wrap: anywhere;
-  }
-
   .rewards-bubble {
-    left: max(0.75rem, env(safe-area-inset-left));
-    right: max(0.75rem, env(safe-area-inset-right));
-    bottom: max(0.75rem, env(safe-area-inset-bottom));
-    width: auto;
-    max-width: none;
-    max-height: min(78svh, 42rem);
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    border-radius: 24px;
-    z-index: 1200;
-  }
-
-  .rewards-bubble::before {
-    display: none;
-  }
-
-  .rewards-bubble-form,
-  .rewards-bubble-submit,
-  .footer-newsletter-form,
-  .footer-input-group,
-  .footer-email-input {
-    width: 100%;
-  }
-
-  .featured-drinks-card-content,
-  .quick-explore-feature,
-  .quick-explore-item,
-  .trust-proof-card,
-  .review-card,
-  .related-card {
-    text-align: center;
-  }
-
-  .quick-explore-pills,
-  .featured-drinks-actions,
-  .footer-social-links,
-  .footer-legal-links {
-    justify-content: center;
-  }
-
-  .coffee-hero-actions,
-  .hero-product-actions,
-  .footer-legal {
-    align-items: center;
-    justify-content: center;
-  }
-
-  .checkout-hero {
-    padding-left: max(1rem, env(safe-area-inset-left));
-    padding-right: max(1rem, env(safe-area-inset-right));
-    padding-bottom: max(2rem, env(safe-area-inset-bottom));
-  }
-
-  .checkout-status,
-  .checkout-pill {
-    width: auto;
-    justify-content: center;
-  }
-
-  .checkout-item {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .checkout-shipping-option {
-    align-items: flex-start;
+    max-width: min(32rem, calc(100vw - 2rem));
   }
 
   .checkout-field input,
@@ -3651,62 +3436,8 @@ html {
 }
 
 @media (max-width: 479px) {
-  .welcome-hero,
-  .coffee-hero,
-  .hero-product-section,
-  .checkout-hero {
-    padding-top: max(6.35rem, calc(env(safe-area-inset-top) + 4.85rem));
-  }
-
-  .welcome-hero-video {
-    object-position: 60% center;
-  }
-
-  .welcome-hero-card,
-  .featured-drinks-card-content,
-  .quick-explore-feature,
-  .quick-explore-item,
-  .trust-proof-card,
-  .how-to-order-step,
-  .review-card,
-  .related-card,
-  .rewards-teaser-content,
-  .checkout-card {
-    padding: 1.1rem;
-  }
-
-  .featured-drinks-rail {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .featured-drinks-name-row,
-  .checkout-card-top,
-  .checkout-total-row,
-  .footer-legal {
-    align-items: center;
-    flex-direction: column;
-  }
-
-  .checkout-pay-btn,
-  .rewards-teaser-trigger,
-  .footer-submit-btn {
-    min-height: 52px;
-  }
-
-  .navigation-cart-panel,
-  .rewards-bubble {
+  .navigation-cart-panel {
     left: max(0.5rem, env(safe-area-inset-left));
     right: max(0.5rem, env(safe-area-inset-right));
-    bottom: max(0.5rem, env(safe-area-inset-bottom));
-  }
-
-  .featured-drinks-card,
-  .quick-explore-feature,
-  .quick-explore-item,
-  .trust-proof-card,
-  .review-card,
-  .related-card {
-    max-width: none;
   }
 }
