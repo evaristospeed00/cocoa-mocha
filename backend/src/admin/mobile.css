@@ -1,0 +1,57 @@
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (max-width: 767px) {
+  body {
+    overflow-x: hidden;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font-size: 16px !important;
+  }
+
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  th,
+  td {
+    white-space: nowrap;
+  }
+
+  [data-radix-popper-content-wrapper] {
+    max-width: calc(100vw - 16px) !important;
+  }
+
+  [role="dialog"],
+  [data-radix-popper-content-wrapper],
+  [data-state="open"][data-side] {
+    max-width: calc(100vw - 16px) !important;
+  }
+
+  [class*="grid"],
+  [class*="container"],
+  [class*="content"] {
+    min-width: 0;
+  }
+
+  main,
+  form {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 479px) {
+  [role="dialog"],
+  [data-radix-popper-content-wrapper] {
+    max-width: calc(100vw - 12px) !important;
+  }
+}
