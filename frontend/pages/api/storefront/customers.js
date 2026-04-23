@@ -1,4 +1,9 @@
-import { getMedusaConfig, getMedusaHeaders, isMedusaConfigured } from '../../../lib/medusa-storefront'
+import {
+  getMedusaConfig,
+  getMedusaHeaders,
+  isMedusaConfigured,
+  resolveMedusaConfig,
+} from '../../../lib/medusa-storefront'
 
 const parseJsonSafely = async (response) => {
   const text = await response.text()
@@ -49,9 +54,17 @@ export default async function handler(req, res) {
     return
   }
 
-  const { backendUrl } = getMedusaConfig()
+  const { backendUrl } = await resolveMedusaConfig()
+
+  if (!backendUrl) {
+    res.status(500).json({
+      message: 'Missing NEXT_PUBLIC_MEDUSA_BACKEND_URL in the frontend environment.',
+    })
+    return
+  }
+
   const baseUrl = backendUrl.replace(/\/+$/, '')
-  const baseHeaders = getMedusaHeaders()
+  const baseHeaders = await getMedusaHeaders()
 
   try {
     const registerResponse = await fetch(

@@ -1,7 +1,11 @@
-import { getMedusaConfig, getMedusaHeaders, isMedusaConfigured } from '../../../lib/medusa-storefront'
+import {
+  getMedusaConfig,
+  getMedusaHeaders,
+  isMedusaConfigured,
+  resolveMedusaConfig,
+} from '../../../lib/medusa-storefront'
 
-const buildTargetUrl = (pathSegments = [], query = {}) => {
-  const { backendUrl } = getMedusaConfig()
+const buildTargetUrl = (backendUrl, pathSegments = [], query = {}) => {
   const sanitizedBaseUrl = backendUrl.replace(/\/+$/, '')
   const targetUrl = new URL(
     `${sanitizedBaseUrl}/${pathSegments.join('/')}`
@@ -54,12 +58,22 @@ export default async function handler(req, res) {
   }
 
   try {
+    const { backendUrl } = await resolveMedusaConfig()
+
+    if (!backendUrl) {
+      res.status(500).json({
+        message: 'Missing NEXT_PUBLIC_MEDUSA_BACKEND_URL in the frontend environment.',
+      })
+      return
+    }
+
     const pathSegments = Array.isArray(req.query.path) ? req.query.path : []
-    const targetUrl = buildTargetUrl(pathSegments, req.query)
+    const targetUrl = buildTargetUrl(backendUrl, pathSegments, req.query)
+    const medusaHeaders = await getMedusaHeaders()
     const response = await fetch(targetUrl, {
       method: req.method,
       headers: {
-        ...getMedusaHeaders(),
+        ...medusaHeaders,
       },
       body: getForwardBody(req),
     })

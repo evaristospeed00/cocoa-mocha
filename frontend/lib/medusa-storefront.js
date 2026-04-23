@@ -101,13 +101,60 @@ export const getMedusaConfig = () => ({
   currencyCode: process.env.NEXT_PUBLIC_MEDUSA_PRICE_CURRENCY_CODE?.trim().toLowerCase() || '',
 })
 
-export const isMedusaConfigured = () => {
-  const { backendUrl, publishableKey } = getMedusaConfig()
-  return Boolean(backendUrl && publishableKey)
+let runtimeStorefrontConfigPromise = null
+
+const fetchRuntimeStorefrontConfig = async () => {
+  const configured = getMedusaConfig()
+  const backendUrl = configured.backendUrl.replace(/\/+$/, '')
+
+  if (!backendUrl) {
+    return configured
+  }
+
+  try {
+    const response = await fetch(`${backendUrl}/store/public-config`)
+
+    if (!response.ok) {
+      return configured
+    }
+
+    const data = await response.json()
+
+    return {
+      backendUrl,
+      publishableKey:
+        String(data?.publishableKey || '').trim() || configured.publishableKey,
+      regionId: String(data?.regionId || '').trim() || configured.regionId,
+      currencyCode:
+        String(data?.currencyCode || '').trim().toLowerCase() ||
+        configured.currencyCode,
+    }
+  } catch (error) {
+    return configured
+  }
 }
 
-export const getMedusaHeaders = () => {
-  const { publishableKey } = getMedusaConfig()
+export const resolveMedusaConfig = async (forceRefresh = false) => {
+  const configured = getMedusaConfig()
+
+  if (configured.backendUrl && configured.publishableKey && !forceRefresh) {
+    return configured
+  }
+
+  if (!runtimeStorefrontConfigPromise || forceRefresh) {
+    runtimeStorefrontConfigPromise = fetchRuntimeStorefrontConfig()
+  }
+
+  return runtimeStorefrontConfigPromise
+}
+
+export const isMedusaConfigured = () => {
+  const { backendUrl } = getMedusaConfig()
+  return Boolean(backendUrl)
+}
+
+export const getMedusaHeaders = async (forceRefresh = false) => {
+  const { publishableKey } = await resolveMedusaConfig(forceRefresh)
 
   return {
     'Content-Type': 'application/json',
@@ -133,7 +180,10 @@ const normalizePrice = (variant = {}) => {
   return 0
 }
 
-const getConfiguredCurrencyCode = () => getMedusaConfig().currencyCode
+const getConfiguredCurrencyCode = async () => {
+  const { currencyCode } = await resolveMedusaConfig()
+  return currencyCode
+}
 
 const buildProductQueryParams = async (extraParams = {}) => {
   const regionId = await getDefaultMedusaRegion()
@@ -250,7 +300,10 @@ export const getProductTags = (product, fallbackTags = []) => {
 
 export const getProductPriceSnapshot = (product) => {
   const firstVariant = getPrimaryVariant(product) || {}
-  const configuredCurrencyCode = getConfiguredCurrencyCode()
+  const configuredCurrencyCode =
+    getMedusaConfig().currencyCode ||
+    product?.variants?.[0]?.calculated_price?.currency_code?.toLowerCase() ||
+    ''
   const variantCalculatedCurrencyCode =
     firstVariant?.calculated_price?.currency_code?.toLowerCase() || ''
   const configuredVariantPrice = findVariantPriceByCurrency(
@@ -311,13 +364,14 @@ export const mapMedusaProductToCartItem = (product, fallbackProduct = {}) => {
 }
 
 const medusaStoreFetch = async (path, options = {}) => {
-  const { backendUrl } = getMedusaConfig()
+  const { backendUrl } = await resolveMedusaConfig()
+  const medusaHeaders = await getMedusaHeaders()
   const baseUrl =
     typeof window === 'undefined' ? backendUrl : MEDUSA_PROXY_BASE_PATH
   const response = await fetch(`${baseUrl}${path}`, {
     ...options,
     headers: {
-      ...getMedusaHeaders(),
+      ...medusaHeaders,
       ...(options.headers || {}),
     },
   })
@@ -340,7 +394,7 @@ export const fetchMedusaRegions = async () => {
 }
 
 export const getDefaultMedusaRegion = async () => {
-  const configuredRegionId = getMedusaConfig().regionId
+  const { regionId: configuredRegionId } = await resolveMedusaConfig()
 
   if (configuredRegionId) {
     return configuredRegionId
@@ -419,7 +473,14 @@ export const fetchMedusaProducts = async () => {
     return []
   }
 
-  const data = await medusaStoreFetch('/store/products')
+  const configuredCurrencyCode = await getConfiguredCurrencyCode()
+  const productUrl = new URL('/store/products', 'http://medusa.local')
+
+  if (configuredCurrencyCode) {
+    productUrl.searchParams.set('currency_code', configuredCurrencyCode)
+  }
+
+  const data = await medusaStoreFetch(`${productUrl.pathname}${productUrl.search}`)
   return Array.isArray(data?.products) ? data.products : []
 }
 
