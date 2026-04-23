@@ -478,6 +478,17 @@ const Footer = (props) => {
               grid-template-columns: 1fr;
             }
           }
+          @media (max-width: 767px) {
+            :global(.footer-top-grid) {
+              flex-direction: column;
+            }
+            :global(.footer-newsletter-column) {
+              order: 1;
+            }
+            :global(.footer-brand-column) {
+              order: 2;
+            }
+          }
         `}
       </style>
     </>
