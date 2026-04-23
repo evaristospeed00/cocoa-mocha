@@ -3103,26 +3103,24 @@ body {
     box-shadow: 0 12px 28px rgba(84, 45, 21, 0.06);
   }
   .rewards-teaser-card {
-    width: min(100%, 22.25rem);
+    width: 100%;
     margin: 0 auto;
-    display: grid;
-    aspect-ratio: 1 / 1;
-    align-items: stretch;
-    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-    overflow: hidden;
+    display: block;
+    aspect-ratio: auto;
+    overflow: visible;
     position: relative;
-    border-radius: 28px;
-    border: 1px solid rgba(126, 67, 31, 0.12);
-    background:
-      radial-gradient(circle at top right, rgba(255, 203, 152, 0.28), transparent 34%),
-      linear-gradient(180deg, rgba(255, 250, 245, 0.98), rgba(255, 243, 233, 0.98));
-    box-shadow: 0 26px 50px rgba(84, 45, 21, 0.14);
+    border: 0;
+    background: transparent;
+    box-shadow: none;
   }
   .rewards-teaser-visual {
-    min-height: 100%;
-    height: 100%;
-    aspect-ratio: auto;
-    border-radius: 28px 0 0 28px;
+    width: min(100%, 21.5rem);
+    min-height: 0;
+    height: auto;
+    margin: 0 auto;
+    aspect-ratio: 1.08 / 1;
+    border-radius: 28px;
+    box-shadow: 0 22px 42px rgba(84, 45, 21, 0.16);
   }
   .rewards-teaser-badge {
     top: 0.75rem;
@@ -3137,29 +3135,39 @@ body {
     height: 16px;
   }
   .rewards-teaser-content {
+    width: min(100%, 21.5rem);
+    aspect-ratio: 1 / 1;
     gap: 0.68rem;
+    display: grid;
+    margin: -2.25rem auto 0;
     min-width: 0;
-    padding: 0.9rem 0.9rem 0.9rem 0.8rem;
+    padding: 1.05rem 1rem 1rem;
+    align-content: start;
     background:
-      linear-gradient(180deg, rgba(255, 250, 244, 0.9), rgba(255, 245, 235, 0.98));
+      radial-gradient(circle at top right, rgba(255, 206, 160, 0.24), transparent 32%),
+      linear-gradient(180deg, rgba(255, 250, 244, 0.96), rgba(255, 245, 235, 0.98));
+    border-radius: 26px;
+    border: 1px solid rgba(126, 67, 31, 0.12);
+    box-shadow: 0 24px 48px rgba(84, 45, 21, 0.14);
+    z-index: 1;
   }
   .rewards-teaser-content .section-title {
     max-width: none;
-    font-size: 1.42rem;
-    line-height: 1.04;
+    font-size: 1.38rem;
+    line-height: 1.06;
   }
   .rewards-teaser-content .section-content {
     max-width: none;
-    font-size: 0.83rem;
-    line-height: 1.45;
+    font-size: 0.82rem;
+    line-height: 1.42;
   }
   .rewards-teaser-perks {
     gap: 0.45rem;
-    margin: 0.2rem 0 0.65rem;
+    margin: 0.15rem 0 0.55rem;
   }
   .rewards-teaser-perk {
     gap: 0.45rem;
-    padding: 0.55rem 0.65rem;
+    padding: 0.52rem 0.62rem;
     border-radius: 14px;
   }
   .rewards-teaser-perk span {
@@ -3176,10 +3184,10 @@ body {
   }
   .rewards-teaser-trigger,
   .rewards-teaser-trigger.btn {
-    min-height: 46px;
-    padding: 0.85rem 0.95rem;
+    min-height: 44px;
+    padding: 0.78rem 0.9rem;
     border-radius: 16px;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     box-shadow: 0 16px 34px rgba(255, 110, 199, 0.18);
   }
   .coffee-tab {
@@ -3272,28 +3280,31 @@ body {
     border-radius: 20px;
   }
   .rewards-teaser-card {
-    width: min(100%, 20.5rem);
     border-radius: 24px;
   }
   .rewards-teaser-visual {
-    border-radius: 24px 0 0 24px;
+    width: min(100%, 19.5rem);
+    border-radius: 24px;
   }
   .rewards-teaser-content {
-    padding: 0.82rem 0.8rem 0.82rem 0.72rem;
+    width: min(100%, 19.5rem);
+    margin-top: -2rem;
+    padding: 0.92rem 0.88rem 0.9rem;
+    border-radius: 22px;
   }
   .rewards-teaser-content .section-title {
-    font-size: 1.28rem;
+    font-size: 1.2rem;
   }
   .rewards-teaser-content .section-content {
-    font-size: 0.78rem;
+    font-size: 0.75rem;
   }
   .rewards-teaser-perk span {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
   }
   .rewards-teaser-trigger,
   .rewards-teaser-trigger.btn {
     min-height: 42px;
-    font-size: 0.84rem;
+    font-size: 0.82rem;
   }
   .featured-drinks-card {
     flex-basis: 88vw;
