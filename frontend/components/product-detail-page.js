@@ -137,14 +137,15 @@ const ProductDetailPage = ({
                   </div>
                   <div className="coffee-hero-sale-price">{formatPrice(price)}</div>
                 </div>
-              ) : null}
-              <p className="hero-subtitle">{description}</p>
-              <div className="coffee-hero-meta">
-                {!(typeof originalPrice === 'number' && originalPrice > price) ? (
-                  <div className="coffee-hero-price">
+              ) : (
+                <div className="coffee-hero-pricing-stack">
+                  <div className="coffee-hero-price coffee-hero-price--standalone">
                     <span>{formatPrice(price)}</span>
                   </div>
-                ) : null}
+                </div>
+              )}
+              <p className="hero-subtitle">{description}</p>
+              <div className="coffee-hero-meta">
                 <div className="coffee-hero-rating">
                   <div className="star-group">
                     {[0, 1, 2, 3].map((star) => (
