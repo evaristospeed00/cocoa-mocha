@@ -26,6 +26,7 @@ const Navigation = (props) => {
       title: product.fallbackTitle,
     }))
   )
+  const [activeMobileSection, setActiveMobileSection] = useState('')
 
   const totalItems = useMemo(() => getCartItemCount(cart), [cart])
   const subtotal = useMemo(() => getCartSubtotal(cart), [cart])
@@ -127,6 +128,13 @@ const Navigation = (props) => {
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false)
+    setActiveMobileSection('')
+  }
+
+  const toggleMobileSection = (section) => {
+    setActiveMobileSection((currentSection) =>
+      currentSection === section ? '' : section
+    )
   }
 
   return (
@@ -632,28 +640,123 @@ const Navigation = (props) => {
                   </Link>
                 </li>
                 <li className="navigation-overlay-item">
-                  <div className="navigation-overlay-link navigation-overlay-link--rewards">
-                    <span>Rewards</span>
-                    <div className="navigation-mobile-rewards">
+                  <div
+                    className={`navigation-overlay-link navigation-overlay-accordion${
+                      activeMobileSection === 'rewards' ? ' is-open' : ''
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      className="navigation-overlay-toggle"
+                      aria-expanded={activeMobileSection === 'rewards'}
+                      aria-controls="mobileRewardsPanel"
+                      onClick={() => toggleMobileSection('rewards')}
+                    >
+                      <span>Rewards</span>
+                      <svg
+                        className="navigation-overlay-toggle-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="m6 9 6 6 6-6"></path>
+                      </svg>
+                    </button>
+                    <div
+                      id="mobileRewardsPanel"
+                      className="navigation-mobile-panel"
+                      hidden={activeMobileSection !== 'rewards'}
+                    >
+                      <div className="navigation-mobile-rewards">
                       <span>Buy 5 handcrafted drinks, get 1 classic brewed coffee free.</span>
                       <span>Spend $18 and unlock 50% off a pastry.</span>
                       <span>Three early orders earn a free flavor add-on.</span>
+                      </div>
                     </div>
                   </div>
                 </li>
                 <li className="navigation-overlay-item">
-                  <div className="navigation-overlay-link navigation-overlay-link--gift-cards">
-                    <span>Gift Cards</span>
-                    <div className="navigation-mobile-rewards">
+                  <div
+                    className={`navigation-overlay-link navigation-overlay-accordion${
+                      activeMobileSection === 'gift-cards' ? ' is-open' : ''
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      className="navigation-overlay-toggle"
+                      aria-expanded={activeMobileSection === 'gift-cards'}
+                      aria-controls="mobileGiftCardsPanel"
+                      onClick={() => toggleMobileSection('gift-cards')}
+                    >
+                      <span>Gift Cards</span>
+                      <svg
+                        className="navigation-overlay-toggle-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="m6 9 6 6 6-6"></path>
+                      </svg>
+                    </button>
+                    <div
+                      id="mobileGiftCardsPanel"
+                      className="navigation-mobile-panel"
+                      hidden={activeMobileSection !== 'gift-cards'}
+                    >
+                      <div className="navigation-mobile-rewards">
                       <span>Load $25 and get a $3 bounce-back bonus.</span>
                       <span>Send a digital gift card and unlock a surprise email-club reward.</span>
                       <span>Buy 2 gift cards and earn a free pastry add-on.</span>
+                      </div>
                     </div>
                   </div>
                 </li>
                 <li className="navigation-overlay-item list-item">
-                  <div className="navigation-thq-navigation-overlay-link-elm5 navigation-overlay-link">
-                    <span>Shop</span>
+                  <div
+                    className={`navigation-thq-navigation-overlay-link-elm5 navigation-overlay-link navigation-overlay-accordion${
+                      activeMobileSection === 'shop' ? ' is-open' : ''
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      className="navigation-overlay-toggle"
+                      aria-expanded={activeMobileSection === 'shop'}
+                      aria-controls="mobileShopPanel"
+                      onClick={() => toggleMobileSection('shop')}
+                    >
+                      <span>Shop</span>
+                      <svg
+                        className="navigation-overlay-toggle-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="m6 9 6 6 6-6"></path>
+                      </svg>
+                    </button>
+                    <div
+                      id="mobileShopPanel"
+                      className="navigation-mobile-panel"
+                      hidden={activeMobileSection !== 'shop'}
+                    >
                     <ul className="navigation-thq-mobile-shop-list-elm list">
                       <li className="list-item">
                         <Link href="/cocoamocha1" legacyBehavior>
@@ -728,6 +831,7 @@ const Navigation = (props) => {
                         </Link>
                       </li>
                     </ul>
+                    </div>
                   </div>
                 </li>
                 <li className="navigation-overlay-item">
@@ -1040,13 +1144,34 @@ const Navigation = (props) => {
           .navigation-thq-mobile-shop-item-elm4 {
             text-decoration: none;
           }
-          .navigation-overlay-link--rewards {
-            align-items: flex-start;
+          .navigation-overlay-accordion {
+            align-items: stretch;
             flex-direction: column;
           }
-          .navigation-overlay-link--gift-cards {
-            align-items: flex-start;
-            flex-direction: column;
+          .navigation-overlay-toggle {
+            gap: 0.85rem;
+            width: 100%;
+            border: 0;
+            display: flex;
+            cursor: pointer;
+            padding: 0;
+            color: inherit;
+            font: inherit;
+            text-align: left;
+            align-items: center;
+            justify-content: space-between;
+            background: transparent;
+          }
+          .navigation-overlay-toggle-icon {
+            flex-shrink: 0;
+            transition: transform 0.25s ease;
+          }
+          .navigation-overlay-accordion.is-open .navigation-overlay-toggle-icon {
+            transform: rotate(180deg);
+          }
+          .navigation-mobile-panel {
+            width: 100%;
+            display: block;
           }
           .navigation-mobile-rewards {
             display: flex;
@@ -1492,6 +1617,12 @@ const Navigation = (props) => {
                 rgba(255, 255, 255, 0.78);
               box-shadow: 0 14px 32px rgba(84, 45, 21, 0.08);
             }
+            .navigation-overlay-accordion {
+              gap: 0.85rem;
+            }
+            .navigation-mobile-panel {
+              margin-top: 0.1rem;
+            }
             .navigation-overlay-link:hover {
               color: var(--color-on-surface);
               transform: none;
@@ -1503,7 +1634,7 @@ const Navigation = (props) => {
               gap: 0.6rem;
               display: grid;
               width: 100%;
-              margin-top: 0.85rem;
+              margin-top: 0;
               padding: 0;
               border-left: 0;
             }
@@ -1520,7 +1651,7 @@ const Navigation = (props) => {
             .navigation-mobile-rewards {
               gap: 0.55rem;
               width: 100%;
-              margin-top: 0.85rem;
+              margin-top: 0;
               padding-left: 0;
               border-left: 0;
             }
