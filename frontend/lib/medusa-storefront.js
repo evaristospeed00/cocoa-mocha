@@ -1,8 +1,8 @@
 const routeByHandle = {
   'ethiopian-yirgacheffe': '/cocoamocha1',
   'colombian-supremo': '/cocoamocha2',
-  'sumatra-mandheling': '/cocoamocha3',
-  'guatemala-antigua': '/cocoamocha4',
+  'sumatra-mandheling': '/cocoamocha4',
+  'guatemala-antigua': '/cocoamocha3',
 }
 
 const badgeByHandle = {
@@ -42,20 +42,20 @@ const featuredProducts = [
       'A polished crowd-pleaser with mellow richness and easy elegance, perfect for everyday mornings or slow afternoon breaks.',
   },
   {
-    handle: 'sumatra-mandheling',
-    href: '/cocoamocha3',
-    badge: 'Bold & Earthy',
-    tastingNotes: 'Deep body, spice, low-acid intensity',
-    fallbackDescription:
-      'Dark, moody, and memorable, this roast brings grounded earthiness and a confident finish with real personality.',
-  },
-  {
     handle: 'guatemala-antigua',
-    href: '/cocoamocha4',
+    href: '/cocoamocha3',
     badge: 'Chocolate Luxe',
     tastingNotes: 'Cocoa depth, smoky nuance, layered finish',
     fallbackDescription:
       'A refined roast with chocolate-forward warmth and subtle smoky complexity that makes the whole page feel more premium.',
+  },
+  {
+    handle: 'sumatra-mandheling',
+    href: '/cocoamocha4',
+    badge: 'Bold & Earthy',
+    tastingNotes: 'Deep body, spice, low-acid intensity',
+    fallbackDescription:
+      'Dark, moody, and memorable, this roast brings grounded earthiness and a confident finish with real personality.',
   },
 ]
 
@@ -77,20 +77,20 @@ export const coffeeSelectorProducts = [
     themeClass: 'product-coffee-option--colombia',
   },
   {
-    key: 'sumatra',
-    handle: 'sumatra-mandheling',
-    href: '/cocoamocha3',
-    fallbackTitle: 'Sumatra Mandheling',
-    subtitle: 'Earthy & Bold',
-    themeClass: 'product-coffee-option--sumatra',
-  },
-  {
     key: 'guatemala',
     handle: 'guatemala-antigua',
-    href: '/cocoamocha4',
+    href: '/cocoamocha3',
     fallbackTitle: 'Guatemala Antigua',
     subtitle: 'Chocolate & Smoke',
     themeClass: 'product-coffee-option--guatemala',
+  },
+  {
+    key: 'sumatra',
+    handle: 'sumatra-mandheling',
+    href: '/cocoamocha4',
+    fallbackTitle: 'Sumatra Mandheling',
+    subtitle: 'Earthy & Bold',
+    themeClass: 'product-coffee-option--sumatra',
   },
 ]
 

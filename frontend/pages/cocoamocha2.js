@@ -2,7 +2,7 @@ import React from 'react'
 
 import ProductDetailPage from '../components/product-detail-page'
 import {
-  fetchMedusaProductByHandle,
+  fetchMedusaProduct,
   getCoffeeSelectorOptions,
   getPrimaryVariant,
   getProductTags,
@@ -10,8 +10,8 @@ import {
 } from '../lib/medusa-storefront'
 
 const MEDUSA_PRODUCT_HANDLE = 'colombian-supremo'
-const MEDUSA_PRODUCT_ID = 'prod_01KNQKZ0CACTPSX6X08TXDA8HN'
-const MEDUSA_VARIANT_ID = 'variant_01KNQKZ0ENCE7BANPKM5NDB44B'
+const MEDUSA_PRODUCT_ID = 'prod_01KPVK5HVBD17DH33FV5MNTZ6M'
+const MEDUSA_VARIANT_ID = 'variant_01KPVK5JMCH7RKSFG1BJ4ZA3B5'
 
 const fallbackProduct = {
   slug: 'colombian-supremo',
@@ -88,7 +88,7 @@ export async function getServerSideProps() {
   const selectorOptions = await getCoffeeSelectorOptions()
 
   try {
-    const medusaProduct = await fetchMedusaProductByHandle(MEDUSA_PRODUCT_HANDLE)
+    const medusaProduct = await fetchMedusaProduct(MEDUSA_PRODUCT_ID)
 
     if (!medusaProduct) {
       return {

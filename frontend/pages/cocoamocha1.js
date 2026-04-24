@@ -2,7 +2,7 @@ import React from 'react'
 
 import ProductDetailPage from '../components/product-detail-page'
 import {
-  fetchMedusaProductByHandle,
+  fetchMedusaProduct,
   getCoffeeSelectorOptions,
   getPrimaryVariant,
   getProductTags,
@@ -10,8 +10,8 @@ import {
 } from '../lib/medusa-storefront'
 
 const MEDUSA_PRODUCT_HANDLE = 'ethiopian-yirgacheffe'
-const MEDUSA_PRODUCT_ID = 'prod_01KNQKZ0CA1EH81H8FN7JJW5ZW'
-const MEDUSA_VARIANT_ID = 'variant_01KNQKZ0EJWPC4959EM031PW7F'
+const MEDUSA_PRODUCT_ID = 'prod_01KPVK5HVBC5QRJVSTVHQTQR0B'
+const MEDUSA_VARIANT_ID = 'variant_01KPVK5JMB8002XC48Q0N2PG4V'
 
 const fallbackProduct = {
   slug: 'ethiopian-yirgacheffe',
@@ -88,7 +88,7 @@ export async function getServerSideProps() {
   const selectorOptions = await getCoffeeSelectorOptions()
 
   try {
-    const medusaProduct = await fetchMedusaProductByHandle(MEDUSA_PRODUCT_HANDLE)
+    const medusaProduct = await fetchMedusaProduct(MEDUSA_PRODUCT_ID)
 
     if (!medusaProduct) {
       return {

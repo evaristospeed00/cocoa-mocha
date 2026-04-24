@@ -2,40 +2,40 @@ import React from 'react'
 
 import ProductDetailPage from '../components/product-detail-page'
 import {
-  fetchMedusaProductByHandle,
+  fetchMedusaProduct,
   getCoffeeSelectorOptions,
   getPrimaryVariant,
   getProductTags,
   getProductPriceSnapshot,
 } from '../lib/medusa-storefront'
 
-const MEDUSA_PRODUCT_HANDLE = 'guatemala-antigua'
-const MEDUSA_PRODUCT_ID = 'prod_01KNQKZ0CAJ6VWSNV1937KZ830'
-const MEDUSA_VARIANT_ID = 'variant_01KNQKZ0EM748WKGPVRDBQQNTA'
+const MEDUSA_PRODUCT_HANDLE = 'sumatra-mandheling'
+const MEDUSA_PRODUCT_ID = 'prod_01KPVK5HVBPM007BGCPCTTPCMS'
+const MEDUSA_VARIANT_ID = 'variant_01KPVK5JMDV3B8X3P1AVSYKZWZ'
 
 const fallbackProduct = {
-  slug: 'guatemala-antigua',
+  slug: 'sumatra-mandheling',
   productId: MEDUSA_PRODUCT_ID,
   variantId: MEDUSA_VARIANT_ID,
-  seoTitle: 'Guatemala Antigua - Cocoa Mocha',
-  ogTitle: 'Guatemala Antigua - Cocoa Mocha',
+  seoTitle: 'Sumatra Mandheling - Cocoa Mocha',
+  ogTitle: 'Sumatra Mandheling - Cocoa Mocha',
   canonicalPath: '/cocoamocha4',
   image:
-    'https://images.pexels.com/photos/15312642/pexels-photo-15312642.jpeg?auto=compress&cs=tinysrgb&w=1500',
-  imageAlt: 'Guatemala Antigua Coffee Beans',
-  badge: 'Luxury Pick',
-  title: 'Guatemala Antigua Coffee',
-  heroTags: ['Chocolate', 'Smoky', 'Complex'],
+    'https://images.pexels.com/photos/6729581/pexels-photo-6729581.jpeg?auto=compress&cs=tinysrgb&w=1500',
+  imageAlt: 'Sumatra Mandheling Coffee Beans',
+  badge: 'Bold Roast',
+  title: 'Sumatra Mandheling Coffee',
+  heroTags: ['Earthy', 'Bold', 'Spicy'],
   description:
-    'Guatemala Antigua brings a chocolate-forward profile with a soft smoky edge and a layered finish. It feels refined, memorable, and ideal for guests who want something a little more sophisticated.',
-  originalPrice: 19.5,
-  price: 19.5,
+    'Earthy, bold, and full of character, Sumatra Mandheling is built for customers who want depth and drama in every sip. The body is rich, the finish is spicy, and the experience lingers.',
+  originalPrice: 18.99,
+  price: 18.99,
   discountLabel: '',
   currencyCode: 'usd',
-  reviewCount: '910 Reviews',
+  reviewCount: '860 Reviews',
 }
 
-const GuatemalaAntigua = ({ backendProduct, selectorOptions }) => {
+const SumatraMandheling = ({ backendProduct, selectorOptions }) => {
   const product = backendProduct || fallbackProduct
 
   return (
@@ -60,35 +60,35 @@ const GuatemalaAntigua = ({ backendProduct, selectorOptions }) => {
       variantId={product.variantId}
       reviews={[
         {
-          name: 'Camila D.',
+          name: 'Leo K.',
           image:
-            'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=200',
-          text: 'The chocolate notes are gorgeous and elegant. It feels like a treat every single time.',
+            'https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=200',
+          text: 'Deep, moody, and powerful in the best way. This one has real personality.',
         },
         {
-          name: 'Noah B.',
+          name: 'Ava N.',
           image:
-            'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=200',
-          text: 'This one feels elevated and gift-worthy. The smoky finish is subtle and classy.',
+            'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=200',
+          text: 'If you love darker, more serious cups, this one absolutely delivers.',
         },
         {
-          name: 'Mia C.',
+          name: 'Ruben S.',
           image:
-            'https://images.pexels.com/photos/1181519/pexels-photo-1181519.jpeg?auto=compress&cs=tinysrgb&w=200',
-          text: 'Complex without being intimidating. It tastes premium from the first sip to the last.',
+            'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=200',
+          text: 'The earthy finish is unforgettable. It feels adventurous without becoming harsh.',
         },
       ]}
     />
   )
 }
 
-export default GuatemalaAntigua
+export default SumatraMandheling
 
 export async function getServerSideProps() {
   const selectorOptions = await getCoffeeSelectorOptions()
 
   try {
-    const medusaProduct = await fetchMedusaProductByHandle(MEDUSA_PRODUCT_HANDLE)
+    const medusaProduct = await fetchMedusaProduct(MEDUSA_PRODUCT_ID)
 
     if (!medusaProduct) {
       return {
