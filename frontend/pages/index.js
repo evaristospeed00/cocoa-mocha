@@ -1256,6 +1256,121 @@ const Home = (props) => {
             margin-top: 0.75rem;
             color: var(--color-on-surface-secondary);
           }
+          .rewards-teaser {
+            padding: 0 1.5rem 6rem;
+          }
+          .rewards-teaser-container {
+            width: min(1180px, 100%);
+            margin: 0 auto;
+          }
+          .rewards-teaser-card {
+            display: grid;
+            grid-template-columns: minmax(320px, 0.96fr) minmax(0, 1.04fr);
+            align-items: stretch;
+            overflow: visible;
+            border-radius: 34px;
+            background:
+              radial-gradient(circle at top left, rgba(255, 224, 190, 0.72), transparent 42%),
+              linear-gradient(145deg, #fff9f2 0%, #f7eee5 52%, #f3e5d8 100%);
+            border: 1px solid rgba(115, 70, 38, 0.11);
+            box-shadow:
+              0 28px 80px rgba(74, 44, 24, 0.12),
+              inset 0 1px 0 rgba(255, 255, 255, 0.55);
+          }
+          .rewards-teaser-visual {
+            position: relative;
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            padding: 1.5rem 0 1.5rem 1.5rem;
+            min-height: 100%;
+          }
+          .rewards-teaser-visual::before {
+            content: '';
+            position: absolute;
+            inset: 2rem 2.4rem 2rem 1.4rem;
+            border-radius: 28px;
+            background:
+              linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.08)),
+              radial-gradient(circle at top, rgba(255, 214, 170, 0.38), transparent 58%);
+            box-shadow: inset 0 0 0 1px rgba(122, 67, 32, 0.08);
+          }
+          .rewards-teaser-img {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            min-height: 420px;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 58%;
+            border-radius: 28px;
+            box-shadow:
+              0 22px 48px rgba(95, 58, 32, 0.18),
+              0 8px 22px rgba(95, 58, 32, 0.1);
+          }
+          .rewards-teaser-badge {
+            position: absolute;
+            z-index: 2;
+            left: 2.5rem;
+            bottom: 2.35rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.8rem 1.1rem;
+            border-radius: 999px;
+            color: #fff8ef;
+            background: rgba(62, 33, 18, 0.82);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 14px 26px rgba(53, 28, 15, 0.22);
+          }
+          .rewards-teaser-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1.35rem;
+            padding: 3.4rem 3.5rem 3.2rem 3rem;
+          }
+          .rewards-teaser-content .section-title {
+            margin: 0;
+          }
+          .rewards-teaser-content .section-content {
+            margin: 0;
+            max-width: 34rem;
+          }
+          .rewards-teaser-perks {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.9rem 1rem;
+            margin-top: 0.35rem;
+          }
+          .rewards-teaser-perk {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-height: 3.8rem;
+            padding: 0.95rem 1.05rem;
+            border-radius: 18px;
+            color: #5d3b28;
+            background: rgba(255, 255, 255, 0.62);
+            border: 1px solid rgba(122, 67, 32, 0.1);
+            box-shadow: 0 10px 24px rgba(92, 57, 34, 0.06);
+          }
+          .rewards-teaser-perk svg {
+            flex-shrink: 0;
+            color: #9f5a34;
+          }
+          .rewards-teaser-perk span {
+            font-size: 0.98rem;
+            font-weight: 600;
+            line-height: 1.35;
+          }
+          .rewards-teaser-cta-wrap {
+            margin-top: 0.55rem;
+            align-self: flex-start;
+          }
+          .rewards-teaser-trigger {
+            box-shadow: 0 18px 36px rgba(142, 76, 36, 0.18);
+          }
           .rewards-bubble-status {
             margin: 0;
             font-size: 0.92rem;
@@ -1390,6 +1505,63 @@ const Home = (props) => {
             100% {
               opacity: 0;
               transform: translateY(-28px) scale(1.01);
+            }
+          }
+          @media (max-width: 1024px) {
+            .rewards-teaser-card {
+              grid-template-columns: 1fr;
+            }
+            .rewards-teaser-visual {
+              padding: 1.25rem 1.25rem 0;
+            }
+            .rewards-teaser-visual::before {
+              inset: 1.25rem 1.25rem 0;
+            }
+            .rewards-teaser-img {
+              min-height: 320px;
+            }
+            .rewards-teaser-badge {
+              left: 2rem;
+              bottom: 0.9rem;
+            }
+            .rewards-teaser-content {
+              padding: 2rem 1.5rem 1.75rem;
+            }
+          }
+          @media (max-width: 767px) {
+            .rewards-teaser {
+              padding: 0 1rem 4.5rem;
+            }
+            .rewards-teaser-card {
+              border-radius: 24px;
+            }
+            .rewards-teaser-visual {
+              padding: 1rem 1rem 0;
+            }
+            .rewards-teaser-visual::before {
+              inset: 1rem 1rem 0;
+              border-radius: 20px;
+            }
+            .rewards-teaser-img {
+              min-height: 260px;
+              border-radius: 20px;
+              object-position: center;
+            }
+            .rewards-teaser-badge {
+              left: 1.55rem;
+              bottom: 0.85rem;
+              padding: 0.7rem 0.9rem;
+              font-size: 0.92rem;
+            }
+            .rewards-teaser-content {
+              gap: 1.1rem;
+              padding: 1.6rem 1rem 1.2rem;
+            }
+            .rewards-teaser-perks {
+              grid-template-columns: 1fr;
+            }
+            .rewards-teaser-perk {
+              min-height: auto;
             }
           }
         `}
