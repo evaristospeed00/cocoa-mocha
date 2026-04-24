@@ -1311,17 +1311,28 @@ const Home = (props) => {
           .rewards-teaser-badge {
             position: absolute;
             z-index: 2;
-            left: 2.5rem;
-            bottom: 2.35rem;
+            left: 2rem;
+            bottom: 1.75rem;
             display: inline-flex;
             align-items: center;
-            gap: 0.65rem;
-            padding: 0.8rem 1.1rem;
+            gap: 0.45rem;
+            padding: 0.5rem 0.8rem;
             border-radius: 999px;
             color: #fff8ef;
             background: rgba(62, 33, 18, 0.82);
             backdrop-filter: blur(10px);
-            box-shadow: 0 14px 26px rgba(53, 28, 15, 0.22);
+            box-shadow: 0 12px 22px rgba(53, 28, 15, 0.18);
+            font-size: 0.84rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+          }
+          .rewards-teaser-badge svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+          }
+          .rewards-teaser-badge span {
+            line-height: 1;
           }
           .rewards-teaser-content {
             display: flex;
@@ -1521,8 +1532,8 @@ const Home = (props) => {
               min-height: 320px;
             }
             .rewards-teaser-badge {
-              left: 2rem;
-              bottom: 0.9rem;
+              left: 1.6rem;
+              bottom: 1rem;
             }
             .rewards-teaser-content {
               padding: 2rem 1.5rem 1.75rem;
@@ -1548,10 +1559,10 @@ const Home = (props) => {
               object-position: center;
             }
             .rewards-teaser-badge {
-              left: 1.55rem;
-              bottom: 0.85rem;
-              padding: 0.7rem 0.9rem;
-              font-size: 0.92rem;
+              left: 1.3rem;
+              bottom: 0.95rem;
+              padding: 0.45rem 0.7rem;
+              font-size: 0.78rem;
             }
             .rewards-teaser-content {
               gap: 1.1rem;
