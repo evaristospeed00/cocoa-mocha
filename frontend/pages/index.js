@@ -1311,24 +1311,32 @@ const Home = (props) => {
           .rewards-teaser-badge {
             position: absolute;
             z-index: 2;
-            left: 2rem;
-            bottom: 1.75rem;
+            top: 1rem;
+            right: 1rem;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 0.45rem;
-            padding: 0.5rem 0.8rem;
+            width: fit-content;
+            max-width: calc(100% - 2rem);
+            min-height: 0;
+            padding: 0.45rem 0.72rem;
             border-radius: 999px;
             color: #fff8ef;
-            background: rgba(62, 33, 18, 0.82);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 12px 22px rgba(53, 28, 15, 0.18);
-            font-size: 0.84rem;
+            background: rgba(92, 53, 31, 0.92);
+            box-shadow: 0 10px 18px rgba(53, 28, 15, 0.14);
+            font-size: 0.76rem;
             font-weight: 700;
             letter-spacing: 0.02em;
+            white-space: nowrap;
+          }
+          .rewards-teaser-badge::before,
+          .rewards-teaser-badge::after {
+            content: none;
           }
           .rewards-teaser-badge svg {
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             flex-shrink: 0;
           }
           .rewards-teaser-badge span {
@@ -1532,7 +1540,7 @@ const Home = (props) => {
               min-height: 320px;
             }
             .rewards-teaser-badge {
-              left: 1.6rem;
+              right: 1rem;
               bottom: 1rem;
             }
             .rewards-teaser-content {
@@ -1559,10 +1567,13 @@ const Home = (props) => {
               object-position: center;
             }
             .rewards-teaser-badge {
-              left: 1.3rem;
-              bottom: 0.95rem;
-              padding: 0.45rem 0.7rem;
-              font-size: 0.78rem;
+              top: 0.85rem;
+              right: 0.85rem;
+              bottom: auto;
+              left: auto;
+              max-width: calc(100% - 1.7rem);
+              padding: 0.42rem 0.62rem;
+              font-size: 0.68rem;
             }
             .rewards-teaser-content {
               gap: 1.1rem;
